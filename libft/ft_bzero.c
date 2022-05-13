@@ -1,23 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/13 18:54:56 by rliu             ###   ########.fr       */
+/*   Created: 2021/11/25 13:00:52 by rliu              #+#    #+#             */
+/*   Updated: 2021/11/29 12:51:20 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
+void	ft_bzero(void *s, int n)
+{
+	char	*string;
+
+	string = s;
+	if (n == 0)
+		return ;
+	while (n > 0)
+	{
+		*string++ = 0;
+		n--;
+	}
+}
+/*#include <libc.h>
 #include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft/libft.h"
+int	main()
+{
+	int	x[10];
+	int n;
 
-#endif
+	n = 9;
+	while (n >= 0)
+	{
+		x[n] = n;
+		printf("%d \n",x[n]);
+		n--;
+	}
+	ft_bzero(x, 50);
+	n = 9;
+	while (n >= 0)
+	{
+		printf("%d \n",x[n]);
+		n--;
+	}
+
+}*/

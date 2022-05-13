@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/13 18:54:56 by rliu             ###   ########.fr       */
+/*   Created: 2021/11/24 13:09:27 by rliu              #+#    #+#             */
+/*   Updated: 2021/11/30 15:27:02 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft/libft.h"
+#include "libft.h"
 
-#endif
+char	*ft_strchr(const char *str, int c)
+{
+	char			*strtemp;
+	unsigned int	size;
+
+	strtemp = (char *)str;
+	size = ft_strlen(str) + 1;
+	while (size-- > 0)
+	{
+		if (*strtemp == (char)c)
+			return (strtemp);
+		strtemp++;
+	}
+	return (0);
+}

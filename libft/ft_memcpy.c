@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/13 18:54:56 by rliu             ###   ########.fr       */
+/*   Created: 2021/11/25 14:13:44 by rliu              #+#    #+#             */
+/*   Updated: 2021/12/06 20:38:28 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
+#include "libft.h"
+
+void	*ft_memcpy(void	*dst, const void *src, size_t len)
+{
+	unsigned char	*dsttemp;
+
+	if (!dst && !src)
+		return (0);
+	dsttemp = (unsigned char *)dst;
+	while (len-- > 0)
+		*(unsigned char *)dsttemp++ = *(unsigned char *)src++;
+	return (dst);
+}
+/*
+#include <libc.h>
 #include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft/libft.h"
+int	main()
+	
+{
+	char	src[12]="12345678900";
+	char	dest[12]= "aaaaaaaaaaa";
 
-#endif
+	ft_memcpy(dest, src, 9);
+	printf("%s\n%s", src, dest);
+}
+*/
