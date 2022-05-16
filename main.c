@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/13 19:04:36 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/16 13:02:28 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int main(int argc, char **argv, char **env)
 		cmd = readline(prompt);
 		printf("\033[0m");
 		add_history(cmd);
+		//printf("%lu\n", ft_strlen(cmd));
 		if (!cmd)
 			exit(EXIT_SUCCESS);
 		if (!cmd[0])
@@ -42,7 +43,11 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			continue;
 		}
-		if (ft_strcmp(cmd ,"exit\n"))
+		if (ft_strcmp(cmd, "pwd") == 0)
+		{
+			ft_pwd();
+		}
+		if (ft_strcmp(cmd,"exit") == 0)
 		{
 			free(cmd);
 			break;
