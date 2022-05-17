@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 13:07:54 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/17 15:23:13 by qxia             ###   ########.fr       */
+/*   Created: 2022/05/17 15:24:14 by qxia              #+#    #+#             */
+/*   Updated: 2022/05/17 16:07:08 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo_with_n(char *str)
+int	change(char **env, char	*path, int home)
 {
-	int	i;
-
-	i = 0;
-	if (!src)
-		return (0);
-	if (src[i] == '-')
-	{
-		i++;
-		while(src[i] == 'n')
-			i++;
-		if (src[i] != 'n')
-			return (0);
-	}
-}
-
-int	ft_echo(char *str)
-{
+	char	*pwd;
 	
+	pwd = getcwd(NULL, 0);
+	if (!chdir(path))
+	{
+		if (pwd)
+		{
+
+		}
+	}
 }
