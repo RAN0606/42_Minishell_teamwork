@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   excute.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/16 18:22:37 by rliu             ###   ########.fr       */
+/*   Created: 2022/05/16 16:28:32 by rliu              #+#    #+#             */
+/*   Updated: 2022/05/16 16:43:20 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft/libft.h"
+int	ft_get_env(char **env)
+{
+	int fd;
 
-# define BUFFER_SIZE 10000
-
-int	ft_pwd(void);
-
-#endif
+	fd = open(./env, O_CREAT);
+	while (*env)
+		ft_putstr_fd(*(env++), fd);
+}

@@ -6,20 +6,50 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/16 13:02:28 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/17 12:19:37 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_env(char **env)// this is just a test for env
+void 	ft_free_env(char **envtab)
 {
-	while (*env)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
+	int i;
+	i = 0;
+	while(*(envtab + i))
+		free(envtab[i++]);
+	free(envtab);
 }
+
+
+char	**ft_getenv(char **env)
+{
+	int	i;
+	char	**envtab;
+	
+	i = 0;
+	while (*(env+i))
+		i++;		
+	envtab = (char **)malloc(sizeof(char *) * (i+1));
+	i = 0;
+	while (*(env + i))
+	{
+		envtab[i] = ft_strdup(*(env+i));
+		i++;
+	}
+	envtab[i] = 0;
+	return (envtab);
+}
+
+void ft_env(char **envtab)// this is just a test for env
+{
+	int i;
+
+	i = 0;
+	while (*(envtab+i))
+		printf("%s\n", envtab[i++]);
+}
+
 
 int main(int argc, char **argv, char **env)
 {
@@ -27,8 +57,10 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	char *cmd;
 	char prompt[] = "mimishell:";
+	char **envtab;
 	
-	print_env(env); // this is a test
+	envtab = ft_getenv(env); // this is malloc should be free before exit(include ctrl+D)
+	ft_env(envtab); // test	
 	while (1)
 	{
 		printf("\033[0;32m");
@@ -50,6 +82,7 @@ int main(int argc, char **argv, char **env)
 		if (ft_strcmp(cmd,"exit") == 0)
 		{
 			free(cmd);
+			ft_free_env(envtab);
 			break;
 		}
 		printf("%s\n", cmd);
