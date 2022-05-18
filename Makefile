@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+         #
+#    By: qinxia <qinxia@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/05/17 13:05:44 by qxia             ###   ########.fr        #
+#    Updated: 2022/05/18 22:17:03 by qinxia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LFLAGS	= -L./libft -lft -lreadline
 
 SRC := main.c \
 	builtins/ft_pwd.c \
-	builtins/ft_env.c	
+	builtins/ft_env.c \
+	builtins/ft_echo.c	
 
 OBJ := $(SRC:%.c=%.o)
 

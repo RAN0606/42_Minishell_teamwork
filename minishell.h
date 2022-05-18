@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: qinxia <qinxia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/17 14:52:03 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/18 23:26:36 by qinxia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	ft_pwd(void);
 char	**ft_getenv(char **env);
 void ft_env(char **envtab);
 void 	ft_free_env(char **envtab);
+int	ft_echo(char **args);
 
 #endif
