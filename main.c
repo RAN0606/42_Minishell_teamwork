@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/17 12:19:37 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/18 12:09:48 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int main(int argc, char **argv, char **env)
 	char **envtab;
 	
 	envtab = ft_getenv(env); // this is malloc should be free before exit(include ctrl+D)
-	ft_env(envtab); // test	
+//	ft_env(envtab); // test env
+	ft_print_value("PATH=", envtab);
 	while (1)
 	{
 		printf("\033[0;32m");
@@ -75,10 +76,10 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			continue;
 		}
-		if (ft_strcmp(cmd, "pwd") == 0)
-		{
-			ft_pwd();
-		}
+//		if (ft_strcmp(cmd, "pwd") == 0)
+//		{
+//			ft_pwd();
+//		}
 		if (ft_strcmp(cmd,"exit") == 0)
 		{
 			free(cmd);
