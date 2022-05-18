@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   sys_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/18 15:37:19 by rliu             ###   ########.fr       */
+/*   Created: 2022/05/18 15:44:28 by rliu              #+#    #+#             */
+/*   Updated: 2022/05/18 16:00:37 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+/* Deal with the CTRL + C*/
 
-#include "libft/libft.h"
+#include "minishell.h"
 
-# define BUFFER_SIZE 10000
-
-int	ft_pwd(void);
-
-/******* utils.c************/
-void ft_print_value(char *key, char **envtab);
-
-#endif
+void	ft_
+{
+}
