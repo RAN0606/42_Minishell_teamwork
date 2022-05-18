@@ -6,13 +6,15 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:57:45 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/17 17:07:19 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/18 11:34:20 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* I put the some fuction useful here */
+
 #include "minishell.h"
 
-int ft_checkenv(char *key, char **envtab)
+int ft_checkenv(char *key, char **envtab) // check if the keyword is exit
 {
 	int i;
 
