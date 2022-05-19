@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qinxia <qinxia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/18 23:26:36 by qinxia           ###   ########.fr       */
+/*   Updated: 2022/05/19 16:57:28 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 #include "libft/libft.h"
 
 # define BUFFER_SIZE 10000
+
+/*typedef struct  s_token
+{
+    int id;
+    void    *value;
+    struct s_token  *next;
+}t_token;*/ //begin "lexer"
 
 int	ft_pwd(void);
 char	**ft_getenv(char **env);

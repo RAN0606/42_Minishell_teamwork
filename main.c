@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qinxia <qinxia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/18 23:31:01 by qinxia           ###   ########.fr       */
+/*   Updated: 2022/05/19 12:02:27 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv, char **env)
 		}
 		/*if (ft_strcmp(cmd, "echo") == 0) //add echo
 		{
-			ft_echo(args); //split cmd to token
+			ft_echo(args); //cmd to token and parsing
 		}*/
 		if (ft_strcmp(cmd, "env") == 0) //add env
 		{

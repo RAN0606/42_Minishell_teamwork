@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qinxia <qinxia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:07:54 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/18 23:22:56 by qinxia           ###   ########.fr       */
+/*   Updated: 2022/05/19 16:58:04 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_echo(char **args)
 	n_flag = 0;
 	if (args_number(args) > 1)
 	{
-		while (args[i] && ft_strcmp(args[i], "-n") == 0) //if -n exist; while pour -nnnnnnnn
+		while (args[i] && ft_strcmp(args[i], "-n") == 0) //if -n exist; while is for the situation -nnnnnnnnn
 		{
 			n_flag = 1;
 			i++;
