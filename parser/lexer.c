@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/19 16:23:03 by rliu             ###   ########.fr       */
+/*   Created: 2022/05/19 14:53:57 by rliu              #+#    #+#             */
+/*   Updated: 2022/05/19 15:46:48 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
-# define MINISHELL_H
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-
-#include "libft/libft.h"
-
-# define BUFFER_SIZE 10000
+#include "minishell.h"
+enum token{MS_PIPE, MS_INPUT, MS_OUTPUT, MS_APPEND,MS_HEREDOC};
+typedef struc s_cmd_lexer
+{
+	char	*word;
+	int	token;
+}t_cmd_lexer;
 
 
-int	ft_pwd(void);
-
-/******* utils.c************/
-void ft_print_value(char *key, char **envtab);
-
-#endif
