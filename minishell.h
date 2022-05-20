@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/16 11:51:53 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/20 18:06:05 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -23,6 +23,8 @@
 
 # define BUFFER_SIZE 10000
 
+
+t_list *ft_lexer(char *cmd);
 int	ft_pwd(void);
 
 #endif

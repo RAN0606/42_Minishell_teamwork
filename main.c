@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/16 13:02:28 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/20 18:08:00 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int main(int argc, char **argv, char **env)
 		add_history(cmd);
 		//printf("%lu\n", ft_strlen(cmd));
 		if (!cmd)
+		{
+			printf("exit\n");
 			exit(EXIT_SUCCESS);
+		}
 		if (!cmd[0])
 		{
 			free(cmd);
@@ -49,11 +52,13 @@ int main(int argc, char **argv, char **env)
 		}
 		if (ft_strcmp(cmd,"exit") == 0)
 		{
+			printf("exit\n");
 			free(cmd);
 			break;
 		}
-		printf("%s\n", cmd);
-		free(cmd);
+		ft_lexer(cmd);
+	//	printf("%s\n", cmd);
+	//	free(cmd);
 	}
 	exit(EXIT_SUCCESS);
 }
