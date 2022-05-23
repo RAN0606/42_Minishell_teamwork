@@ -6,60 +6,126 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/20 18:33:07 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/23 18:56:01 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 /*enum token {L_WORD, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
 
 typedef struct s_token
 {
-	char	*cmd;
 	int	token;
-}*/
+	char	*cmd;
+}t_token;*/
 
-char *ft_chr_quote(char *cmd_ptr)
+typedef struct s_word
+{
+	char	*str;
+	int	nb;
+}t_word;
+
+char	*ft_strjoinfree(char *s1, char *s2)
+{
+	char	*s;
+
+	if (!s1 || !s2)
+		return (0);
+	s = (char *)malloc(sizeof(*s) * ((ft_strlen(s1) + (ft_strlen(s2) + 1))));
+	if (!s)
+		return (0);
+	ft_strlcpy(s, s1, ft_strlen(s1) + 1);
+	ft_strlcat(s, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	free(s1);
+	free(s2);
+	return (s);
+}
+
+int	ft_chr_quote(char *cmd)
 {
 	int	i;
 	i = -1;
 
 	while (*(cmd + (++i)))
-		if (*(cmd+i) == ''')
-			return(ft_substr());
+		if (*(cmd+i) == '\'')
+			return (i);
 	return (-1);
 		
 }
-t_list *ft_lexer(char *cmd)
+
+t_word	*ft_readword(char *cmd)
 {
-//	t_list *lexer_list;
 	int	i;
 	int	j;
 	char	*temp_cmd;
-	char	*word;
+	t_word	*word;
 
 	i=0;
 	j=-1;
 	temp_cmd = ft_strtrim(cmd," ");
-	word = ft_strdup("");
+	word = malloc(sizeof(t_word));
+	word->str = ft_strdup("");
 	while (temp_cmd[i])
 	{
-		if(*(temp+i) == ''')
+		if (temp_cmd[i] == '\'')
 		{
-			j = ft_paire_quote(cmd + i + 1);
+			j = ft_chr_quote(temp_cmd + i + 1);
 			if (j < 0)
 			{
-				printf("parsing error: quote is not cloesed!");
-				free(cmd);
-				return (0);
+				printf("parsing error: quote is not cloesed!\n");
+				free(temp_cmd);
+				return (NULL);
 			}
+			word->str = ft_strjoinfree(word->str, ft_substr(temp_cmd, i + 1, j));
+			i = i + 2 + j;
+		}
+		else if (temp_cmd[i] ==' ')
+		{
+			word->nb = i;
+			return (word);
+		}
+		else
+		{
+			word->str = ft_strjoinfree(word->str, ft_substr(temp_cmd, i, 1));
+			i++;
 		}
 	}
-	printf("%s", cmd);
-	printf("%s", temp);
-	free(cmd);
-	free(temp);
-	return (0);
-	
+	word->nb = i;
+	return (word);
+}
+
+
+void ft_lexer(char *cmd)
+{
+
+	char	*temp_cmd;
+	int	i;
+	t_word	*word;
+
+	i = 0;
+	temp_cmd = cmd;
+	while (temp_cmd[i])
+	{
+	       if (temp_cmd[i] == ' ')
+		       i++;	
+	       else if (temp_cmd[i] == '|')
+	       {
+		       printf("there is a pipe\n");
+		       i++;
+	       }
+	       else if (temp_cmd[i] == '<' || temp_cmd[i] == '>')
+	       {
+		       printf("there is a redirection\n");
+		       i++;
+	       }
+	       else
+	       {
+		       word = ft_readword(temp_cmd + i);
+		       printf("%s\n", word->str);
+		       i = i + word->nb;
+		       free(word->str);
+		       free(word);
+	       }
+	}
 }

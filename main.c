@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/20 18:08:00 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/23 18:54:14 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(int argc, char **argv, char **env)
 		}
 		ft_lexer(cmd);
 	//	printf("%s\n", cmd);
-	//	free(cmd);
+		free(cmd);
 	}
 	exit(EXIT_SUCCESS);
 }
