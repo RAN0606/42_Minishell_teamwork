@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/23 18:54:14 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/24 15:10:53 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int main(int argc, char **argv, char **env)
 	char *cmd;
 	char prompt[] = "mimishell:";
 	
-	print_env(env); // this is a test
+//	print_env(env); // this is a test
+
 	while (1)
 	{
 		printf("\033[0;32m");
@@ -56,7 +57,7 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			break;
 		}
-		ft_lexer(cmd);
+		ft_lexer(cmd, env);
 	//	printf("%s\n", cmd);
 		free(cmd);
 	}

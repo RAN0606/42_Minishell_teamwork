@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/24 13:15:28 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/24 17:14:09 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ char	*ft_strjoinfree(char *s1, char *s2)
 	return (s);
 }
 
-int ft_check_envvalue(char *key, char **envtab) // check if the keyword is exit
+int ft_check_envvalue(char *keyequal, char **envtab) // check if the keyword is exit
 {
 	int	i;
-	char	*keyequal;
 
 	i = 0;
 	while (*(envtab + i))
@@ -58,6 +57,16 @@ int ft_check_envvalue(char *key, char **envtab) // check if the keyword is exit
 	return (-1);
 }
 
+int ft_check_envkey(char *cmd, int i)
+{
+	while (cmd[i])
+	{
+		if (cmd[i] == ' ' || cmd[i] == '"' || cmd[i] =='\'' )
+			return (i-1);
+		i++;
+	}
+	return (i-1);
+}
 char *ft_return_envvalue(char *key, char **envtab)
 {
 	char	*keyequal;
@@ -66,39 +75,29 @@ char *ft_return_envvalue(char *key, char **envtab)
 		
 	keyequal = ft_strjoin(key, "=");
 	index = -2;
-	index = ft_checkenv(key, envtab);
-	else if (index >= 0)
-		return (ft_strdup(envtab[index] + ft_strlen(keyequal));
-	return(ft_strdup(""));
+	index = ft_check_envvalue(key, envtab);
+	if (index >= 0)
+		return (ft_strdup(envtab[index] + ft_strlen(keyequal)));
+	return (ft_strdup(""));
 }
 
-int ft_check_envkey(char *cmd, i)
-{
-	while (cmd[i])
-	{
-		if (temp_cmd[i] == ' ')
-			return (i-1);
-		i++;
-	}
-	return (i-1);
-}
 
-char	*ft_handle_dollar(char *cmd, i, char **envtab)
+char	*ft_handle_dollar(char *cmd, int i, char **envtab)
 {
 	char	*env_key;
 	char	*env_value;
 	int	j;
 
 	j = ft_check_envkey(cmd, i + 1);
-	if (j == i)
-		return (0);
-	if (j > i)
+	if (i == j)
+		return (ft_strdup("$"));
+	else if (j > i)
 	{
 		env_key = ft_substr(cmd, i + 1, j - i);
 		env_value = ft_return_envvalue(env_key, envtab);
 		return (env_value);
 	}	
-	return (0)	
+	return (0);	
 }
 
 int	ft_chr_quote(char *cmd, char c)
@@ -106,27 +105,54 @@ int	ft_chr_quote(char *cmd, char c)
 	int	i;
 	i = -1;
 
-	while (*(cmd + (++i)))
+	while (cmd[++i])
 	{
-		if (*(cmd+i) == c)
+		if (cmd[i] == c)
 			return (i);
 	}
 	return (-1);
 		
 }
 
-t_word	*ft_readword(char *cmd)
+char	*ft_return_quotevalue(char *cmd, char c, char **envtab)
+{
+	int 	j;
+	int	i;
+	char	*str;
+
+	str = ft_strdup("");
+	j = ft_chr_quote(cmd, c);
+	if (j < 0)
+	{
+		printf("parsing error: quote is not closed (don't need to do it - 42 subject)");
+		return (0);
+	}
+	i = -1;
+	while (++i <= j)
+	{
+		if (cmd[i] == '$')
+		{	
+			i = ft_check_envkey(cmd, i + 1);
+			str = ft_strjoinfree(str, ft_handle_dollar(cmd, i, envtab));
+		}
+		else 
+			str = ft_strjoinfree(str, ft_substr(cmd, i, 1));
+			
+	}
+	return (str);
+}
+
+t_word	*ft_readword(char *cmd, char **envtab)
 {
 	int	i;
 	int	j;
 	char	*temp_cmd;
-	t_word	*word;
 	char	*env_value;
+	t_word	*word;
 
 	i=0;
 	j=-1;	
 	temp_cmd = ft_strtrim(cmd," ");
-	free(cmd);
 	word = malloc(sizeof(t_word));
 	word->str = ft_strdup("");
 	while (temp_cmd[i])
@@ -134,21 +160,22 @@ t_word	*ft_readword(char *cmd)
 		if (temp_cmd[i] == '\'' || temp_cmd[i] == '"')
 		{
 			j = ft_chr_quote(temp_cmd + i + 1, temp_cmd[i]);
-			if (j < 0)
-			{
-				printf("parsing error: quote is not cloesed!\n");
-				free(temp_cmd);
-				return (NULL);
-			}
-			word->str = ft_strjoinfree(word->str, ft_substr(temp_cmd, i + 1, j));
+			word->str = ft_strjoinfree(word->str, ft_return_quotevalue(temp_cmd + i + 1, temp_cmd[i], envtab));
 			i = i + 2 + j;
 		}
-		if (temp_cmd[i] == '$')
+		else if (temp_cmd[i] == '$')
 		{
-			env_value = ft_handle_dollar(temp_cmd, i);
-			if (env_value)
-				printf("%s\n", env_value)
-			
+			if(temp_cmd[i + 1] =='\'')
+				i++;
+			else
+			{
+				env_value = ft_handle_dollar(temp_cmd, i, envtab);
+				if (env_value)
+				{
+					word->str = ft_strjoinfree(word->str, env_value);
+					i =  ft_check_envkey(cmd, i + 1) + 1;
+				}
+			}
 		}
 		else if (temp_cmd[i] ==' ')
 		{
@@ -162,11 +189,12 @@ t_word	*ft_readword(char *cmd)
 		}
 	}
 	word->nb = i;
+	free(temp_cmd);
 	return (word);
 }
 
 
-void ft_lexer(char *cmd)
+void ft_lexer(char *cmd, char **envtab)
 {
 
 	char	*temp_cmd;
@@ -191,7 +219,9 @@ void ft_lexer(char *cmd)
 	       }
 	       else
 	       {
-		       word = ft_readword(temp_cmd + i);
+		       word = ft_readword(temp_cmd + i, envtab);
+		       if (!word)
+			       return ;
 		       printf("%s\n", word->str);
 		       i = i + word->nb;
 		       free(word->str);
