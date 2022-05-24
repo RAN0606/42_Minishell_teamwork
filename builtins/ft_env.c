@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 13:00:09 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/17 13:01:06 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/24 14:43:38 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void 	ft_free_env(char **envtab)
 {
 	int i;
+	
 	i = 0;
 	while(*(envtab + i))
 		free(envtab[i++]);
@@ -24,7 +25,7 @@ void 	ft_free_env(char **envtab)
 
 char	**ft_getenv(char **env)
 {
-	int	i;
+	int		i;
 	char	**envtab;
 	
 	i = 0;

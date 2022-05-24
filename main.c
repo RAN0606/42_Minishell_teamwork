@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/19 12:02:27 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/20 16:38:11 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int main(int argc, char **argv, char **env)
 	char *cmd;
 	char prompt[] = "mimishell:";
 	char	**envtab;
-	
+	char	*args[] = {"echo", "-n", "hello"};
+		
 	envtab = ft_getenv(env); // this is malloc should be free before exit(include ctrl+D)
 	//ft_env(envtab); //test
 	while (1)
@@ -29,6 +30,7 @@ int main(int argc, char **argv, char **env)
 		printf("\033[0m");
 		add_history(cmd);
 		//printf("%lu\n", ft_strlen(cmd));
+		
 		if (!cmd)
 			exit(EXIT_SUCCESS);
 		if (!cmd[0])
@@ -40,10 +42,10 @@ int main(int argc, char **argv, char **env)
 		{
 			ft_pwd();
 		}
-		/*if (ft_strcmp(cmd, "echo") == 0) //add echo
+		if (ft_strcmp(cmd, "echo") == 0) //add echo
 		{
 			ft_echo(args); //cmd to token and parsing
-		}*/
+		}
 		if (ft_strcmp(cmd, "env") == 0) //add env
 		{
 			ft_env(envtab);

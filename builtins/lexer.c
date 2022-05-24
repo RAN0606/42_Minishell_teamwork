@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 21:23:39 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/24 12:08:42 by qxia             ###   ########.fr       */
+/*   Created: 2022/05/23 13:18:57 by qxia              #+#    #+#             */
+/*   Updated: 2022/05/23 16:28:50 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+t_token new_token(char *value, int id)
 {
-	if (!lst && !del)
-		return ;
-	del(lst -> content);
-	free(lst);
+    t_token *token;
+    
+    token = malloc(sizeof(*token));
+    token->value = ft_strdup(value);
+    token->id = id;
+    return (token);    
 }
 
+t_list  *get_token(char *s)
+{
+    
+}

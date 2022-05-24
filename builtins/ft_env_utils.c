@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 21:23:39 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/24 12:08:42 by qxia             ###   ########.fr       */
+/*   Created: 2022/05/24 17:29:18 by qxia              #+#    #+#             */
+/*   Updated: 2022/05/24 17:36:02 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int set_env(char    *env)
 {
-	if (!lst && !del)
-		return ;
-	del(lst -> content);
-	free(lst);
-}
+    char    *tmp;
+    size_t  i;
+    size_t  len;
 
+    if (!env)
+        return (0);
+    len = ft_strlen(env);
+    
+}
