@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 11:11:09 by rliu              #+#    #+#              #
-#    Updated: 2022/05/13 18:16:34 by rliu             ###   ########.fr        #
+#    Updated: 2022/05/25 15:15:58 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 SRCS =	ft_isalpha.c \
@@ -68,7 +68,7 @@ NAME = libft.a
 %.o:	%.c
 	clang $(FLAGS) -c $< -o $@
 
-all: $(NAME) 
+all: $(NAME) bonus 
 
 bonus:      ${OBJB} ${OBJS}
 		ar rcs ${NAME} ${OBJS} ${OBJB}

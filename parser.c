@@ -6,26 +6,11 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/24 17:14:09 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/25 18:47:13 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-enum token {L_WORD, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
-
-typedef struct s_token
-{
-	int	token;
-	char	*cmd;
-}t_token;
-
-typedef struct s_word
-{
-	char	*str;
-	int	nb;
-}t_word;
-
 
 char	*ft_strjoinfree(char *s1, char *s2)
 {
@@ -77,10 +62,12 @@ char *ft_return_envvalue(char *key, char **envtab)
 	index = -2;
 	index = ft_check_envvalue(key, envtab);
 	if (index >= 0)
+	{
+		//printf("%d test: %s", index,envtab[index]+ ft_strlen(keyequal));
 		return (ft_strdup(envtab[index] + ft_strlen(keyequal)));
+	}
 	return (ft_strdup(""));
 }
-
 
 char	*ft_handle_dollar(char *cmd, int i, char **envtab)
 {
@@ -90,7 +77,9 @@ char	*ft_handle_dollar(char *cmd, int i, char **envtab)
 
 	j = ft_check_envkey(cmd, i + 1);
 	if (i == j)
+	{
 		return (ft_strdup("$"));
+	}
 	else if (j > i)
 	{
 		env_key = ft_substr(cmd, i + 1, j - i);
@@ -110,8 +99,7 @@ int	ft_chr_quote(char *cmd, char c)
 		if (cmd[i] == c)
 			return (i);
 	}
-	return (-1);
-		
+	return (-1);		
 }
 
 char	*ft_return_quotevalue(char *cmd, char c, char **envtab)
@@ -128,12 +116,13 @@ char	*ft_return_quotevalue(char *cmd, char c, char **envtab)
 		return (0);
 	}
 	i = -1;
-	while (++i <= j)
+	while (++i < j)
 	{
-		if (cmd[i] == '$')
+		if (cmd[i] == '$' && c =='\"')
 		{	
-			i = ft_check_envkey(cmd, i + 1);
 			str = ft_strjoinfree(str, ft_handle_dollar(cmd, i, envtab));
+		
+			i = ft_check_envkey(cmd, i + 1);
 		}
 		else 
 			str = ft_strjoinfree(str, ft_substr(cmd, i, 1));
@@ -142,17 +131,15 @@ char	*ft_return_quotevalue(char *cmd, char c, char **envtab)
 	return (str);
 }
 
-t_word	*ft_readword(char *cmd, char **envtab)
+t_word	*ft_readword(char *temp_cmd, char **envtab)
 {
 	int	i;
 	int	j;
-	char	*temp_cmd;
 	char	*env_value;
 	t_word	*word;
 
 	i=0;
 	j=-1;	
-	temp_cmd = ft_strtrim(cmd," ");
 	word = malloc(sizeof(t_word));
 	word->str = ft_strdup("");
 	while (temp_cmd[i])
@@ -173,11 +160,11 @@ t_word	*ft_readword(char *cmd, char **envtab)
 				if (env_value)
 				{
 					word->str = ft_strjoinfree(word->str, env_value);
-					i =  ft_check_envkey(cmd, i + 1) + 1;
+					i =  ft_check_envkey(temp_cmd, i + 1) + 1;
 				}
 			}
 		}
-		else if (temp_cmd[i] ==' ')
+		else if (temp_cmd[i] ==' ' || temp_cmd[i] =='<' || temp_cmd[i] == '>' )
 		{
 			word->nb = i;
 			return (word);
@@ -189,43 +176,67 @@ t_word	*ft_readword(char *cmd, char **envtab)
 		}
 	}
 	word->nb = i;
-	free(temp_cmd);
 	return (word);
 }
 
+t_list *ft_token(int token, char *str)
+{
+	t_token	*token_ptr;
+	t_list	*token_element;
 
-void ft_lexer(char *cmd, char **envtab)
+	token_ptr = malloc(sizeof(t_token));
+	if (!token_ptr)
+		return 0;
+	token_ptr->token = token;
+	token_ptr->str = ft_strdup(str);
+	token_element = ft_lstnew((void *)token_ptr);
+	return (token_element);
+
+}
+
+t_list	*ft_lexer(char *cmd, char **envtab)
 {
 
 	char	*temp_cmd;
 	int	i;
 	t_word	*word;
+//	t_list	*token_list;
 
-	i = 0;
-	temp_cmd = cmd;
+//	token_list = NULL;
+	i = 0;	
+	temp_cmd = ft_strtrim(cmd," ");
 	while (temp_cmd[i])
 	{
 	       if (temp_cmd[i] == ' ')
 		       i++;	
 	       else if (temp_cmd[i] == '|')
 	       {
-		       printf("there is a pipe\n");
+		      // ft_lstadd_back(&token_list, ft_token(L_PIPE, "|"));
+		      printf("%c\n", temp_cmd[i]);
 		       i++;
 	       }
 	       else if (temp_cmd[i] == '<' || temp_cmd[i] == '>')
 	       {
-		       printf("there is a redirection\n");
+		       
+		      printf("%c\n", temp_cmd[i]);
+		       //ft_lstadd_back(&token_list, ft_token(L_INPUT, "< >"));
 		       i++;
 	       }
 	       else
 	       {
 		       word = ft_readword(temp_cmd + i, envtab);
 		       if (!word)
-			       return ;
-		       printf("%s\n", word->str);
+		       {
+		//	       ft_lstclear(&token_list, ft_free_token);
+			       return 0;
+		       }
+		//       ft_lstadd_back(&token_list, ft_token(L_WORD, word->str));
+			 
+		      printf("%s\n", word->str);
 		       i = i + word->nb;
 		       free(word->str);
 		       free(word);
 	       }
 	}
+	return (0);
 }
