@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/05/20 18:04:14 by rliu             ###   ########.fr        #
+#    Updated: 2022/05/26 21:23:05 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,7 @@ LFLAGS	= -L./libft -lft -lreadline
 
 
 SRC := main.c \
-	parser.c\
-	builtins/ft_pwd.c	
+	parser.c
 
 OBJ := $(SRC:%.c=%.o)
 

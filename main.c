@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/25 17:59:54 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/26 21:21:40 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	char *cmd;
 	char prompt[] = "mimishell:";
-//	t_list	*token_list;
+	t_list	*token_list;
 	
 	print_env(env); // this is a test
 
@@ -59,10 +59,6 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			continue;
 		}
-		if (ft_strcmp(cmd, "pwd") == 0)
-		{
-			ft_pwd();
-		}
 		if (ft_strcmp(cmd,"exit") == 0)
 		{
 			printf("exit\n");
@@ -70,15 +66,20 @@ int main(int argc, char **argv, char **env)
 			break;
 		}
 		ft_lexer(cmd, env);
-//		token_list = ft_lexer(cmd, env);
-//		if (!token_list)
-//			continue ;
-//		printf("token: %d, str :%s\n", ((t_token *)(token_list->content))->token, ((t_token *)(token_list->content))->str);
+		token_list = ft_lexer(cmd, env);
+		if (!token_list)
+		{
+			if (cmd)
+				free (cmd);
+			continue ;
+		}
+		printf("token_list %p\n", token_list);
 
-//		ft_lstiter (token_list, ft_print_token);
-//		ft_lstclear(&token_list, ft_free_token);
-//		token_list = NULL;
-	//	printf("%s\n", cmd);
+		ft_lstiter (token_list, ft_print_token);
+		ft_lstclear(&token_list, ft_free_token);
+		printf("token_list %p\n", token_list);
+
+	//	printf("%s\n", );
 		free(cmd);
 	}
 }

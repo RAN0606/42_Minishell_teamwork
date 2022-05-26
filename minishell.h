@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/25 15:14:13 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/26 21:18:58 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -44,7 +44,24 @@ struct g_ms_info
 	t_list	*token_list;
 };
 
+/*******************Env********************/
+
+//****env_utils.c*********
+
+int ft_check_envvalue(char *keyequal, char **envtab);
+char *ft_return_envvalue(char *key, char **envtab);
+
+/******************* Lexer + Parser *******************/
+
+//*****lp_utils.c
+
+char	*ft_strjoinfree(char *s1, char *s2);
+
+
+
 t_list	*ft_lexer(char *cmd, char **envtab);
+
+void ft_free_token (void *token);
 
 int	ft_pwd(void);
 
