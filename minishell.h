@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/26 21:18:58 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/27 18:58:06 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -35,6 +35,7 @@ typedef struct s_token
 typedef struct s_word
 {
 	char	*str;
+	char	*ptr_cmd;
 	int	nb;
 }t_word;
 
