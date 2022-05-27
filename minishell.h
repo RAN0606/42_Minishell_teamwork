@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/27 18:58:06 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/27 20:41:57 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -54,12 +54,28 @@ char *ft_return_envvalue(char *key, char **envtab);
 
 /******************* Lexer + Parser *******************/
 
+int ft_check_envvalue(char *keyequal, char **envtab);
+int ft_check_envkey(char *cmd);
 //*****lp_utils.c
 
+
+char *ft_return_envvalue(char *key, char **envtab);
+char	*ft_dollar_inword(char *temp_cmd, char **envtab, t_word *word);
+char	*ft_handle_dollar(char *cmd, char **envtab);
+
+int	ft_chr_quote(char *cmd, char c);
+char	*ft_return_quotevalue(char *cmd, char c, char **envtab,int j);
+char *ft_handle_quote (char *temp_cmd, t_word *word, char **envtab);
+
+int	ft_check_signe(char c);
+t_word	*ft_readword(char *temp_cmd, char **envtab);
+char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
+
+char	*ft_handle_redir(char *cmd, t_list **token_list);
 char	*ft_strjoinfree(char *s1, char *s2);
 
-
-
+t_list *ft_token(int token, char *str);
+int	ft_add_token_element(t_list **token_list, int token, char *str);
 t_list	*ft_lexer(char *cmd, char **envtab);
 
 void ft_free_token (void *token);
