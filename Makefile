@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/05/27 20:37:14 by rliu             ###   ########.fr        #
+#    Updated: 2022/05/30 18:23:31 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,16 @@ IFLAGS	= -I. -I./libft
 LFLAGS	= -L./libft -lft -lreadline
 
 
-SRC := main.c \
-	lexer_parser/lex_dollar.c lexer_parser/lex_quote.c lexer_parser/lex_redir.c lexer_parser/lex_word.c lexer_parser/lexer.c 
+SRC :=main.c \
+	lexer_parser/lex_dollar.c \
+	lexer_parser/lex_quote.c \
+	lexer_parser/lex_redir.c \
+	lexer_parser/lex_word.c \
+	lexer_parser/lexer.c \
+	lexer_parser/lex_utils.c \
+	lexer_parser/parser.c \
+	builtins/ft_echo.c
+
 
 OBJ := $(SRC:%.c=%.o)
 

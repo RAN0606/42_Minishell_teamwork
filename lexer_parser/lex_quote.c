@@ -6,57 +6,61 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/27 20:59:00 by rliu             ###   ########.fr       */
+/*   Updated: 2022/05/30 16:28:55 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	ft_chr_quote(char *cmd, char c)
+int	ft_chr_quote(char *cmd_wqt, char c)
 {
 	int	i;
-	
+
 	i = 0;
-	while (cmd[++i])
+	while (cmd_wqt[++i])
 	{
-		if (cmd[i] == c)
+		if (cmd_wqt[i] == c)
 			return (i);
 	}
-	return (-1);		
+	return (i);
 }
 
-char	*ft_return_quotevalue(char *cmd, char c, char **envtab, int j)
+char	*ft_return_quotevalue(char *cmd_wqt, char c, char **envtab, int j)
 {
-	int	i;
+	int		i;
 	char	*str;
 
 	str = ft_strdup("");
-	i = -1;
-	while (++i < j -1)
+	i = 0;
+	while (++i < j)
 	{
-		if (cmd[i] == '$' && c =='\"')
-		{	
-			str = ft_strjoinfree(str, ft_handle_dollar(cmd, envtab));
-			i = ft_check_envkey(cmd) - 1;
+		if (cmd_wqt[i] == '$' && c == '\"')
+		{
+			str = ft_strjoinfree(str, ft_handle_dollar(cmd_wqt + i, envtab));
+			i = ft_check_envkey(cmd_wqt + i);
 		}
-		else 
-			str = ft_strjoinfree(str, ft_substr(cmd, i, 1));
+		else
+			str = ft_strjoinfree(str, ft_substr(cmd_wqt, i, 1));
 	}
 	return (str);
 }
 
-char *ft_handle_quote (char *temp_cmd, t_word *word, char **envtab)
+char	*ft_handle_quote(char *cmd_wqt, t_word *word, char **envtab)
 {
-	int j;
+	int	j;
 
-	j = ft_chr_quote(temp_cmd, *temp_cmd);
-	if (j < 0)
-	{
-		printf("parsing error: quote is not closed (don't need to do it - 42 subject)");
+	j = ft_chr_quote(cmd_wqt, *cmd_wqt);
+	if (!cmd_wqt[j])
+	{	
+		printf("parsing error: quote is not closed (42 subject)\n");
+		free(word->str);
+		free(word);
 		return (NULL);
 	}
 	else
-		word->str = ft_strjoinfree(word->str, ft_return_quotevalue(temp_cmd + 1, *temp_cmd, envtab, j));
-	return (temp_cmd + j + 1);
+	{
+		word->str = ft_strjoinfree(word->str,
+				ft_return_quotevalue(cmd_wqt, *cmd_wqt, envtab, j));
+	}
+	return (cmd_wqt + j + 1);
 }
