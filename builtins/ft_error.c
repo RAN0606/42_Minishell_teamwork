@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env_utils.c                                     :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 17:29:18 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/24 17:36:02 by qxia             ###   ########.fr       */
+/*   Created: 2022/05/30 12:45:26 by qxia              #+#    #+#             */
+/*   Updated: 2022/05/30 12:46:36 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int set_env(char    *env)
+void    error_message(char  *str, int status)
 {
-    char    *tmp;
-    size_t  i;
-    size_t  len;
-
-    if (!env)
-        return (0);
-    len = ft_strlen(env);
-    
+    g_status = status;
+    ft_putstr_fd(str, 2);
 }

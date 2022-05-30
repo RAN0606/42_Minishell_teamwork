@@ -6,102 +6,44 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:24:14 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/27 16:53:56 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/30 16:20:46 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+//hander with only cd, but not cd -
+// chdir() changes the current working directory of the calling process to the directory specified in path
 
-static void	print_error(char *args)
+int	cd_only(t_data	*data) //only has cd
 {
-	ft_putstr_fd("cd :", 2);
-	if (args(2))
-		ft_putstr_fd("string not in pwd: ",2);
-	else
-	{
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putendl_fd(args[1], 2);
+	if (ft_index("HOME=", data) < 0 \
+			|| chdir((strchr(data->env[ft_index("HOME=", data)], '=') + 1)) == -1)
+		return (0);
+	change_pwd(data, NULL);
+	return (1);
 }
 
-/*static char	*add_home_path(char	*path)
+int	cd_path(char **args, t_data *data)
 {
-	char	*tmp;
-	char	*tmp1;
-
-	if (!ft_strcmp(path, "~"))
-	{
-		
-	}
-}*/
-
-static char	*get_env_path(t_env *env, const char *var, size_t len)
-{
-	char	*oldpwd;
-	int	i;
-	int	j;
-	int	size;
-
-	while(env && env->next != NULL)
-	{
-		if (strcmp(env->value, var) == 0)
-		{
-			size = ft_strlen(env->value) - len;
-			if (!(oldpwd = malloc(sizeof(char) * size + 1)))
-				return (NULL);
-			i = 0;
-			j = 0;
-			while (env->value[i++])
-			{
-				if (i > (int)len)
-					oldpwd[j++] = env->value[i];
-			}
-			oldpwd[j] = '\0';
-			return (oldpwd);
-		}
-		env = env->next;
-	}
-	return (NULL);
+	if (chdir(args[1]) == -1) //chdir returns -1 if it fails to change disectory
+		return (0);
+	change_pwd(data, args[1]);
+	return (1);
 }
 
-static int	new_pwd(t_env *env)
+void	ft_cd(char **args, t_data *data)
 {
-	char	cwd[PATH_MAX];
-	char	*oldpwd;
-
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (1);
-	if (!(old = ft_strjoin("OLDPWD=", cwd)))
-		return (1);
-	if (var_in_env(env, oldpwd) == 0)
-		env_add(oldpwd, env);
-	ft_memedel(oldpwd);
-	return (0);
-
-}
-
-static int	find_path(int option, t_env *env)
-{
-
-}
-
-int	ft_cd(char **args, t_env *env)
-{
-	int	ret;
-
 	if (!args[1])
-		return ()
-	if (ft_strcmp(args[1], '-') == 0)
-		ret = go_to_path(1, env);
+	{
+		if (!cd_only(data))
+			return (error_message("cd: HOME: is undefined\n", 1));
+	}
+	if (args[1] && args[2])
+		return (error_message("cd: too many arguments\n", 1));
 	else
 	{
-		new_pwd(env);
-		ret = chdir(args[1]);
-		if (ret < 0)
-			ret *= -1;
-		if (ret != 0)
-			print_error(args);
+		if (!cd_path(args, data))
+			return (error_message("cd: no such file or dirsctory\n", 1));
 	}
-	return (ret);
+	g_status = 0;
 }

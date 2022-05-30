@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/23 13:18:57 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/23 16:28:50 by qxia             ###   ########.fr       */
+/*   Created: 2022/05/30 16:02:31 by qxia              #+#    #+#             */
+/*   Updated: 2022/05/30 16:05:46 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token new_token(char *value, int id)
+int check_export(char *str)
 {
-    t_token *token;
-    
-    token = malloc(sizeof(*token));
-    token->value = ft_strdup(value);
-    token->id = id;
-    return (token);    
+    int i;
+
+    i = 0;
+    if (ft_isdigit(str[i]))
+        return (0);
+    while (str[i] && str[i] != '=')
+    {
+        if (!ft_isalnum(str[i] && str[i] != '_')
+            return (0);
+        i++;
+    }
+    return (1);
 }
 
-t_list  *get_token(char *s)
-{
-    
-}

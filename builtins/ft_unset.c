@@ -6,58 +6,54 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:04:35 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/24 14:52:29 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/30 16:06:18 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void error_print(char *args)
+char    **unset_env(char **old_env, int index)
 {
-    ft_putstr_fd("Minishell: unset: ", 2);
-    ft_putstr_fd(args, 2);
-    ft_putstr_fd(": \'not a valid identifier\'\n", 2);
-    return ;  
-}
-
-static size_t   size_env(char   *env)
-{
-    size_t  i;
+    int i;
+    int j;
+    char    **new_env;
 
     i = 0;
-    while(env[i] && env[i] != '=')
-        i++;
-    return (i);
-}
-
-static void free(t_env *env, t_mini *mini)
-{
-    ??ft_memdel(env);
-}
-
-int ft_unset(char   **args, t_mini  *mini)
-{
-    t_env   *env;
-    t_env   *tmp;
-
-    env = mini->env;
-    if (!args[1])
-        return (0);
-    if (ft_strcmp(args[1], env->value) == 0)
+    j = 0;
+    new_env = malloc(sizeof(char *) * (ft_envlen(old_env)));
+    if (!new_env)
+        exit(EXIT_FAILURE);
+    while (old_env[i])
     {
-        free ??;
-        return (0);
-    }
-    while (env && env->next)
-    {
-        if (ft_strcmp(args[1], env->next->value) == 0)
+        if (i != index)
         {
-            tmp = env->next->next;
-            free ??;
-            env->next = tmp;
-            return (0);
+            new_env[j] = ft_strdup(old_env[i]);
+            j++;
         }
-        env = env->next;
+        i++;
     }
-    return (0);
+    ft_free_env(old_env);
+    i--;
+    new_env[i] = 0;
+    return (new_env);
+}
+
+void    ft_unset(char   **inputs, t_data *data)
+{
+    int i;
+    int index;
+
+    i = 1;
+    while (inputs[i])
+    {
+        if (check_export(inputs[i])) //check_export is in the ft_export_utils.c
+        {
+            index = ft_index(inputs[i], data);
+            if (index > 0)
+                data->env = unset_env(data->env, index);
+            i++;
+        }
+        else
+            return (error_message("unset: invalid identifier\n", 1));
+    }
 }
