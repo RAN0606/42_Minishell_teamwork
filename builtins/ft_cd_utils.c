@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 12:43:52 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/30 15:32:45 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/31 11:04:54 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void    change_env_oldpwd(t_data    *data)
     char    *pwd;
     char    *oldpwd;
 
-    if (ft_index("OLDPWD", DATA) >= 0)
+    if (ft_index("OLDPWD", data) >= 0)
     {
-        pwd = ft_strjoin("PWD=", data->env);
+        pwd = ft_strjoin("PWD=", data->pwd);
         oldpwd = ft_strjoin("OLD", pwd);
         change_var(oldpwd, data, ft_index("OLDPWD=", data));
         free(oldpwd);

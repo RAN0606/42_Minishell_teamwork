@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:04:35 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/30 16:06:18 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/31 11:05:13 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void    ft_unset(char   **inputs, t_data *data)
             i++;
         }
         else
-            return (error_message("unset: invalid identifier\n", 1));
+            ft_putstr_fd("unset: invalid identifier\n", 2);
     }
 }

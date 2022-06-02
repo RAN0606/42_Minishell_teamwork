@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 13:07:54 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/19 16:58:04 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/31 15:39:53 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_echo(char **args)
 	n_flag = 0;
 	if (args_number(args) > 1)
 	{
-		while (args[i] && ft_strcmp(args[i], "-n") == 0) //if -n exist; while is for the situation -nnnnnnnnn
+		while (args[i] && ft_strcmp(args[i], "-n") == 0) //-nnnnnnnnn doesn't deal
 		{
 			n_flag = 1;
 			i++;

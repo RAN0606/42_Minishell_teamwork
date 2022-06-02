@@ -6,11 +6,16 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/20 16:38:11 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/31 16:22:52 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*void	call_builtin(char **inputs, t_data *data)
+{
+	
+}*/
 
 int main(int argc, char **argv, char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:46 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/30 15:29:05 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/31 12:41:24 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int ft_index(char   *name, t_data *data)
     return (-1);
 }
 
-void    change_var(char *new_var, t_data->data, int index)
+void    change_var(char *new_var, t_data *data, int index)
 {
     if (ft_strchr(new_var, '='))
     {
@@ -39,7 +39,7 @@ void    change_var(char *new_var, t_data->data, int index)
     }
 }
 
-char    **export_env(har    **old_env, char *export)
+char    **export_env(char    **old_env, char *export)
 {
     int     i;
     char    **new_env;
@@ -58,4 +58,58 @@ char    **export_env(har    **old_env, char *export)
     i++;
     new_env[i] = NULL;
     return (new_env);
+}
+
+void    export_only(t_data *data)
+{
+    int i;
+    int j;
+    char    **temp_env;
+    char    *swap;
+
+    i = 0;
+    temp_env = ft_getenv(data->env);
+    while (temp_env[i + 1])
+    {
+        j = i + 1;
+        if (strcmp(temp_env[i], temp_env[j]) > 0)
+        {
+            swap = temp_env[j];
+            temp_env[j] = temp_env[i];
+            temp_env[i] = swap;
+            i = 0;
+        }
+        else
+            i++;
+    }
+    print_export(temp_env);
+    ft_free_env(temp_env);
+}
+
+void    ft_export(char **inputs, t_data *data)
+{
+    int i;
+    int index;
+
+    i = 1;
+    if (inputs[i])
+    {
+        while (inputs[i])
+        {
+            index = ft_index(inputs[i], data);
+            if (index >= 0 && check_export(inputs[i]))
+                change_var(inputs[i], data, index);
+            else if (check_export(inputs[i]))
+            {
+                data->env = export_env(data->env, inputs[i]);
+                if (!data->env)
+                    exit(EXIT_FAILURE);
+            }
+            else
+                ft_putstr_fd("export: bad identifier\n", 1);
+            i++;
+        }
+    }
+    else
+        export_only(data);
 }

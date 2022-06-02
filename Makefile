@@ -6,7 +6,7 @@
 #    By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/05/20 16:47:31 by qxia             ###   ########.fr        #
+#    Updated: 2022/05/31 14:57:02 by qxia             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,12 @@ LFLAGS	= -L./libft -lft -lreadline
 SRC := main.c \
 	builtins/ft_pwd.c \
 	builtins/ft_env.c \
-	builtins/ft_echo.c	
+	builtins/ft_echo.c \
+	builtins/ft_cd.c \
+	builtins/ft_cd_utils.c \
+	builtins/ft_unset.c \
+	builtins/ft_export.c \
+	builtins/ft_export_utils.c \
 
 OBJ := $(SRC:%.c=%.o)
 

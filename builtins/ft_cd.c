@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:24:14 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/30 16:20:46 by qxia             ###   ########.fr       */
+/*   Updated: 2022/05/31 11:05:05 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,13 @@ void	ft_cd(char **args, t_data *data)
 	if (!args[1])
 	{
 		if (!cd_only(data))
-			return (error_message("cd: HOME: is undefined\n", 1));
+			ft_putstr_fd("cd: HOME: is undefined\n", 2);
 	}
 	if (args[1] && args[2])
-		return (error_message("cd: too many arguments\n", 1));
+		ft_putstr_fd("cd: too many arguments\n", 2);
 	else
 	{
 		if (!cd_path(args, data))
-			return (error_message("cd: no such file or dirsctory\n", 1));
+			ft_putstr_fd("cd: no such file or directory\n", 2);
 	}
-	g_status = 0;
 }
