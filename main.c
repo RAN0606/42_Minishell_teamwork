@@ -6,26 +6,29 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/02 17:03:18 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/03 17:01:40 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_data(t_data *data, char **env)
+/*void	init_data(t_data *data, char **env)
 {
 	data->env = ft_getenv(env);
 	data->pwd = getcwd(NULL, 0);
 	data->fd_in = 0;
 	data->fd_out = 1;
 	data->redir = 1;
-}
+}*/
 
 int main(int argc, char **argv, char **env)
 {
-	t_data	*data;
+	//t_data	*data;
+	(void)argc;
+	(void)argv;
 	char *cmd;
 	char prompt[] = "mimishell:";
+	char	**envtab;
 		
 	envtab = ft_getenv(env); // this is malloc should be free before exit(include ctrl+D)
 	//ft_env(envtab); //test
@@ -48,10 +51,10 @@ int main(int argc, char **argv, char **env)
 		{
 			ft_pwd();
 		}
-		if (ft_strcmp(cmd, "echo") == 0) //add echo
+		/*if (ft_strcmp(cmd, "echo") == 0) //add echo
 		{
 			ft_echo(args); //cmd to token and parsing
-		}
+		}*/
 		if (ft_strcmp(cmd, "env") == 0) //add env
 		{
 			ft_env(envtab);
