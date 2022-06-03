@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/03 17:18:47 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/03 17:27:55 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int ft_pipe(char *input1, char *input2, t_data *data)
 {
     pid_t   pid;
     int     fd[2];
-
+    // fd[0] - read
+    // fd[1] - write 
     if (pipe(fd) == -1)
         exit(EXIT_FAILURE);
     pid = fork();
