@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/30 18:21:31 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/03 19:26:32 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -21,28 +21,44 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
-# define BUFFER_SIZE 10000
-
 enum token {L_WORD = 1, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
 
 typedef struct s_token
 {
-	int	token;
+	int		token;
 	char	*str;
-	int	id;
+	int		is_save;
 }t_token;
 
 typedef struct s_word
 {
 	char	*str;
 	char	*ptr_cmd;
-	int	nb;
+	int		nb;
 }t_word;
+
+/*typedef struct s_count_token
+{
+	int		nb_word;
+	int		nb_redir_in;
+	int		nb_redir_out;
+	int		nb_redir_hd;
+	int		nb_redir_apd;
+}t_count_token;
+
+typedef struct s_cmdtab
+{
+	t_list	*word_list;
+	t_list	*redir_in_list;
+	t_list	*redir_out_list;
+	t_list	is_pipe;
+}t_cmdtab;*/
 
 struct g_ms_info
 {
 	char	**env_tab;
-	t_list	*token_list;
+	t_list	*lex_list;
+	t_list  *cmd_tab_list;
 };
 
 /*******************Env********************/
@@ -83,8 +99,7 @@ char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 char	*ft_handle_redir(char *cmd, t_list **token_list);
 /********parser.c***********************/
 
-char	**parser_cmd(t_list *lex_list);
-void	ft_call_builtin(char **list_cmd);
+void parser_cmd(t_list *lex_list);
 
 
 /***************************builtin*********************/

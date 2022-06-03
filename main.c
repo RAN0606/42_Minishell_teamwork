@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/30 18:14:42 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/03 19:28:34 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,12 @@ int main(int argc, char **argv, char **env)
 	char prompt[] = "mimishell:";
 	t_list	*token_list;
 	
-//	print_env(env); // this is a test
-
 	while (1)
 	{
 		printf("\033[0;32m");
 		cmd = readline(prompt);
 		printf("\033[0m");
 		add_history(cmd);
-		//printf("%lu\n", ft_strlen(cmd));
 		if (!cmd)
 		{
 			printf("exit\n");
@@ -62,9 +59,9 @@ int main(int argc, char **argv, char **env)
 				free (cmd);
 			continue ;
 		}
-	//	printf("token_list %p\n", token_list);
-	//	ft_lstiter (token_list, ft_print_token);
-		ft_call_builtin(parser_cmd(token_list));
+//		printf("token_list %p\n", token_list);
+//		ft_lstiter (token_list, ft_print_token);
+		parser_cmd(token_list);
 		ft_lstclear(&token_list, ft_free_token);
 	//	printf("token_list %p\n", token_list);
 		free(cmd);
