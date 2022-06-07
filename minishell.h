@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/03 19:26:32 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/07 12:36:11 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -99,8 +99,7 @@ char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 char	*ft_handle_redir(char *cmd, t_list **token_list);
 /********parser.c***********************/
 
-void parser_cmd(t_list *lex_list);
-
+int		ft_parser_cmd(t_list *lex_list);
 
 /***************************builtin*********************/
 int	ft_pwd(void);

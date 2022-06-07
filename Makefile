@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/06/03 19:02:28 by rliu             ###   ########.fr        #
+#    Updated: 2022/06/07 10:48:22 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC :=main.c \
 	lexer_parser/lex_word.c \
 	lexer_parser/lexer.c \
 	lexer_parser/lex_utils.c \
-	lexer_parser/par2.c \
+	lexer_parser/par3.c \
 	builtins/ft_echo.c
 
 
