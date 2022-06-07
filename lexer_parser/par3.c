@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/07 17:04:22 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/07 18:34:30 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -22,13 +22,13 @@ int	ft_check_syntax(t_list *lex_list)
 	{
         if (last_token == 0 && ((t_token *)(list_ptr->content))->token == L_PIPE)
         {
-			printf("minish: syntax error near unexpected token `|'");
+			printf("minish: syntax error near unexpected token `|'\n");
 			return (1);
 		}
-		if (last_token > L_WORD && 
-			(((t_token *)(list_ptr->content))->token != L_WORD))
+		else if (last_token > L_WORD && 
+			(((t_token *)(list_ptr->content))->token > L_WORD))
 		{
-			printf("minish: syntax error near unexpected token `|'");
+			printf("minish: syntax error near unexpected token `%s'\n", ((t_token *)(list_ptr->content))->str);
 			return (1);
 		}
 		last_token = ((t_token *)(list_ptr->content))->token;
@@ -36,7 +36,7 @@ int	ft_check_syntax(t_list *lex_list)
 	}
 	if (last_token > L_WORD)
 	{
-			printf("minish: syntax error near unexpected token `newline'");
+			printf("minish: syntax error near unexpected token `newline'\n");
 			return (1);
 	}
 	return (0);
@@ -119,18 +119,26 @@ int		ft_call_function(char **list_cmd)
 int ft_input(t_list *lex_list)
 {
 	int		fd;
-	char	*path
+	char	*path;
 	int		code;
+//	char	buf[1024];
 
+	code = 0;
 	if (lex_list)
 	{
-		path = ((t_token *)(list_ptr->content))->str;
+		path = ((t_token *)(lex_list->content))->str;
 		fd = open(path, O_RDONLY);
 		if (fd < 0)
+		{
+			printf("%s: No such file or directory\n", path);
 			return (2);
+		}
 		else
 		{
 			code = dup2(fd, 0);
+			close(fd);
+//			read(0, buf, 10);
+//			printf("test%s",buf);
 			return (code);
 		}
 	}
@@ -139,8 +147,8 @@ int ft_input(t_list *lex_list)
 
 int		ft_redir_in(t_list *lex_list)
 {
-	t_list	*list_ptr;
 	int		token;
+	t_list	*list_ptr;
 
 	list_ptr = lex_list;
 	while (list_ptr)
@@ -150,33 +158,35 @@ int		ft_redir_in(t_list *lex_list)
 			return (0);
 		else if (token == L_INPUT)
 		{
-			list_ptr = list_ptr->token;
-			ft_input(list->list_ptr);
+			list_ptr = list_ptr->next;
+			if (ft_input(list_ptr) == 2)
+				return (2);
 		}
 		else if (token == L_HEREDOC)
 		{
-			list_ptr = list_ptr->token;
-			ft_heredoc(lex_list);
+			list_ptr = list_ptr->next;
+	//		ft_heredoc(list_ptr);
 		}
 		list_ptr = list_ptr->next;
 	}
 	return (0);
 }
 
-}
-
 int		ft_parser_cmd(t_list *lex_list)
 {
 	char	**simple_cmd;
 	int		code;
-	
+
+	code = 0;
 	code = ft_check_syntax(lex_list);
-	if (!code)
+	if (code)
 		return (code);
+	if(ft_redir_in(lex_list))
+		return (2);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	code = ft_call_function (simple_cmd);
 	free(simple_cmd);
+	
 	return (code);
 }
-
 
