@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/06/07 10:48:22 by rliu             ###   ########.fr        #
+#    Updated: 2022/06/10 18:52:14 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ IFLAGS	= -I. -I./libft
 LFLAGS	= -L./libft -lft -lreadline
 
 
-SRC :=main.c \
+SRC :=test_excv.c
+#main.c \
 	lexer_parser/lex_dollar.c \
 	lexer_parser/lex_quote.c \
 	lexer_parser/lex_redir.c \

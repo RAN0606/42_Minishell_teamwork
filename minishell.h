@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/07 17:23:36 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/10 11:58:22 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -22,6 +22,7 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
+#	define BUFFER_SIZE 1
 enum token {L_WORD = 1, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
 
 typedef struct s_token
@@ -105,5 +106,5 @@ int		ft_parser_cmd(t_list *lex_list);
 /***************************builtin*********************/
 int	ft_pwd(void);
 int     ft_echo(char **args);
-
+char	*get_next_line(int fd);
 #endif

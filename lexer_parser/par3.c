@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/07 18:34:30 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/10 17:05:09 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -131,7 +131,7 @@ int ft_input(t_list *lex_list)
 		if (fd < 0)
 		{
 			printf("%s: No such file or directory\n", path);
-			return (2);
+			return (-1);
 		}
 		else
 		{
@@ -144,11 +144,67 @@ int ft_input(t_list *lex_list)
 	}
 	return (0);
 }
+char *ft_filename(void)
+{
+	static char	name[256];
+	static int	i;
+	static int	c = 48;
 
-int		ft_redir_in(t_list *lex_list)
+	if (c== 123)
+	{
+		c = 48;
+		i++;
+	}
+	name[i] = c;
+	c++;
+	return (ft_strdup(name));
+}
+
+char *ft_tmpname(char *str)
+{
+	char *name;
+	char newname[256];
+
+	name = ft_filename();
+	while (!access(name,F_OK))
+	{
+		free(name);
+		name = ft_filename();
+	}
+	if (!name)
+		return(0);
+	return (name);
+}
+
+int ft_heredoc(t_list *lex_list)
+{
+	char	*str;
+	char	*line;
+	int		fd;
+	char	*name;
+
+	str = ((t_token *)(lex_list->content))->str;
+	name = ft_tmpname();
+	fd = open(name, O_CREAT|O_WRONLY|O_TRUNC, 0777);
+	if (!name || fd < 0)
+		return (-1);
+	line = readline(">");
+	while (ft_strcmp(line, str) != 0)
+	{
+		ft_putstr_fd(line, fd);
+		free(line);
+		line = readline(">");
+	}
+	dup2(fd, 0);
+	close (fd);
+	return (0);
+}
+
+int		ft_redir_in(t_list *lex_list, char *name)
 {
 	int		token;
 	t_list	*list_ptr;
+	int		fd;
 
 	list_ptr = lex_list;
 	while (list_ptr)
@@ -163,11 +219,12 @@ int		ft_redir_in(t_list *lex_list)
 				return (2);
 		}
 		else if (token == L_HEREDOC)
-		{
+		{	
 			list_ptr = list_ptr->next;
-	//		ft_heredoc(list_ptr);
+			if (ft_heredoc(list_ptr, name))
+				return (3);
 		}
-		list_ptr = list_ptr->next;
+			list_ptr = list_ptr->next;
 	}
 	return (0);
 }
@@ -177,16 +234,17 @@ int		ft_parser_cmd(t_list *lex_list)
 	char	**simple_cmd;
 	int		code;
 
-	code = 0;
+	name = ft_temname();
 	code = ft_check_syntax(lex_list);
 	if (code)
 		return (code);
-	if(ft_redir_in(lex_list))
+	if(ft_redir_in(lex_list,name))
 		return (2);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	code = ft_call_function (simple_cmd);
 	free(simple_cmd);
-	
+	unlink(name);
+	free (name);
 	return (code);
 }
 
