@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/10 17:05:09 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/13 12:12:57 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -144,6 +144,7 @@ int ft_input(t_list *lex_list)
 	}
 	return (0);
 }
+
 char *ft_filename(void)
 {
 	static char	name[256];
@@ -160,10 +161,9 @@ char *ft_filename(void)
 	return (ft_strdup(name));
 }
 
-char *ft_tmpname(char *str)
+char *ft_tmpname(void)
 {
 	char *name;
-	char newname[256];
 
 	name = ft_filename();
 	while (!access(name,F_OK))
@@ -176,19 +176,18 @@ char *ft_tmpname(char *str)
 	return (name);
 }
 
-int ft_heredoc(t_list *lex_list)
+int ft_heredoc(t_list *lex_list, char *name)
 {
 	char	*str;
 	char	*line;
 	int		fd;
-	char	*name;
 
 	str = ((t_token *)(lex_list->content))->str;
-	name = ft_tmpname();
 	fd = open(name, O_CREAT|O_WRONLY|O_TRUNC, 0777);
 	if (!name || fd < 0)
 		return (-1);
 	line = readline(">");
+	printf("test:name %s, fd %d",name, fd);
 	while (ft_strcmp(line, str) != 0)
 	{
 		ft_putstr_fd(line, fd);
@@ -204,7 +203,6 @@ int		ft_redir_in(t_list *lex_list, char *name)
 {
 	int		token;
 	t_list	*list_ptr;
-	int		fd;
 
 	list_ptr = lex_list;
 	while (list_ptr)
@@ -233,8 +231,9 @@ int		ft_parser_cmd(t_list *lex_list)
 {
 	char	**simple_cmd;
 	int		code;
+	char	*name;
 
-	name = ft_temname();
+	name = ft_tmpname();
 	code = ft_check_syntax(lex_list);
 	if (code)
 		return (code);

@@ -42,14 +42,16 @@ int ft_ex(char **argv1, char **envp)
 {
 	int pid;
 	int signal = 0;
+	int	code;
 
 	pid = fork();
 	if (pid == -1)
 		printf("erro");
 	if (!pid)
 	{
-		execve("ls", argv1+1, envp);
-		perror("excve");	
+		code = execve("/usr/bin/ls", argv1+1, envp);
+		perror("excve");
+		printf("testcode:%d\n",code);	
 	}
 	else
 	{
@@ -64,7 +66,7 @@ void ft_try()
 	char *cmd;
 
 	char *argv1[ ]={"ls", "-al","ss", "ss", "/etc/passwd", NULL};
-	char *envp[] = {"HOME=/root","PATH=/mnt/nfs/homes/rliu/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin", NULL};
+	char *envp[] = {"/usr/bin/ls", NULL};
 	char prompt[] = "mimishell:";
 	cmd = NULL;
 	while (1)
