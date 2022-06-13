@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/10 11:58:22 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/13 19:59:33 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -20,6 +20,7 @@
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/wait.h>
 #include "libft/libft.h"
 
 #	define BUFFER_SIZE 1
@@ -80,7 +81,6 @@ t_list	*ft_lexer(char *cmd, char **envtab);
 
 /*****lex_utils.c*/
 char	*ft_strjoinfree(char *s1, char *s2);
-
 void	ft_print_token(void *token);
 void ft_free_token (void *token);
 t_list *ft_token(int token, char *str);
@@ -101,8 +101,12 @@ char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 char	*ft_handle_redir(char *cmd, t_list **token_list);
 /********parser.c***********************/
 
-int		ft_parser_cmd(t_list *lex_list);
+//int		ft_parser_cmd(t_list *lex_list,char **envtab);
 
+int	ft_excute_simplecmd(t_list *lex_list, char **envtab);
+/********************ft_excve.c**********************/
+int	ft_excuvp(char **simplecmd, char **envtab);
+int ft_call_execve(char **simplecmd, char **envtab);
 /***************************builtin*********************/
 int	ft_pwd(void);
 int     ft_echo(char **args);
