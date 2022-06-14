@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/03 17:27:55 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/14 14:34:43 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    ft_parents_process(char *input2, t_data *data, int pid, int *fd)
     dup2(fd[0], 0);
     close(fd[0]);
     close(fd[1]);
-    ?parser;
+    ?parser; //input parsing
     dup2(oldfd, 0);
     close(oldfd);
 }
@@ -43,7 +43,7 @@ int ft_pipe(char *input1, char *input2, t_data *data)
         dup2(fd[1], 1);
         close(fd[0]);
         close(fd[1]);
-        ?basic
+        handle_basic // input basic
     }
     else if (pid < 0)
         exit(EXIT_FAILURE);

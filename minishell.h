@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/31 15:12:29 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/14 15:48:04 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,18 @@ typedef struct  s_data
     int     fd_in;
     int     fd_out;
     int     redir;
-}t_data;
+}       t_data;
+
+typedef struct s_cmd
+{
+	char	**cmd;
+	t_list	*in_streams;
+	t_list	*in_stream_head;
+	t_list	*out_streams;
+	t_list	*out_streams_head;
+	int		flag;
+	int		dlr;
+}		t_cmd;
 
 //int	g_status;
 int	ft_pwd(void);
