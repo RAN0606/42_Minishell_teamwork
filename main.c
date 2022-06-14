@@ -6,15 +6,17 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/03 17:01:40 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/14 17:20:57 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*void	init_data(t_data *data, char **env)
+//data did not initialiser yet.
+
+/*void	data_init(t_data *data, char **env)
 {
-	data->env = ft_getenv(env);
+	data->env = dup_env(env);
 	data->pwd = getcwd(NULL, 0);
 	data->fd_in = 0;
 	data->fd_out = 1;
@@ -47,7 +49,7 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			continue;
 		}
-		if (ft_strcmp(cmd, "pwd") == 0) //add pwd
+		if (ft_strcmp(cmd, "pwd") == 0)
 		{
 			ft_pwd();
 		}
@@ -55,13 +57,13 @@ int main(int argc, char **argv, char **env)
 		{
 			ft_echo(args); //cmd to token and parsing
 		}*/
-		if (ft_strcmp(cmd, "env") == 0) //add env
+		if (ft_strcmp(cmd, "env") == 0) //data->env do not mettre yet
 		{
 			ft_env(envtab);
 		}
-		if (ft_strcmp(cmd,"exit") == 0)
+		if (ft_strcmp(cmd,"exit") == 0) //ft_exit did not add in main yet
 		{
-			printf("%s\n", "exit");
+			printf("%s\n", "exit"); 
 			free(cmd);
 			ft_free_env(envtab);
 			break;

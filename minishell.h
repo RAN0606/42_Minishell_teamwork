@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/14 15:48:04 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/14 16:56:16 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct  s_data
     int     redir;
 }       t_data;
 
-typedef struct s_cmd
+typedef struct s_cmd  //just copy xue's
 {
 	char	**cmd;
 	t_list	*in_streams;
@@ -63,5 +63,6 @@ void	change_var(char *new_var, t_data *data, int index);
 char	**export_env(char    **old_env, char *export);
 int	check_export(char *str);
 void    print_export(char **env);
+void    ft_exit(t_cmd   *cmd);
 
 #endif
