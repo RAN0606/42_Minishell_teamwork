@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/13 19:57:56 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/15 18:48:12 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -101,19 +101,22 @@ t_list	*ft_find_piple(t_list *lex_list)
 int		ft_call_builtin(char **list_cmd)
 {
 	if (ft_strcmp(list_cmd[0],"echo") == 0)
-		return (ft_echo(list_cmd));
+		exit(ft_echo(list_cmd));
 	return (-1);
 }
 
-int		ft_call_function(char **list_cmd)
+int	ft_call_function(char **cmdtab, char **envtab)
 {
-	int code;
 	
-	code = -1;
-	code = ft_call_builtin(list_cmd);
-	if (code >= 0)
-		return (code);
-	return (127);
+	if (ft_call_builtin(cmdtab) == -1)
+	{
+		if(ft_excuvp(cmdtab, envtab)==-1)
+		{
+			printf("cmd not found\n");
+			exit(127);
+		}
+	}
+	return (0);
 }
 
 int ft_input(t_list *lex_list)
@@ -228,6 +231,7 @@ int		ft_redir_in(t_list *lex_list, char *name)
 	}
 	return (0);
 }
+
 int		ft_output(t_list *lex_list)
 {
 	char *name;
@@ -285,30 +289,43 @@ int		ft_redir_out(t_list *lex_list)
 	return (0);
 }
 
-int	ft_excute_simplecmd(t_list *lex_list, char **envtab)
+int	ft_simplecmd(t_list *lex_list, char **envtab)
 {
 	char	**simple_cmd;
 	char	*name;
-	int		fd[2];
+//	int		fd[2];
 
-	fd[0] = dup(0);
-	fd[1] = dup(1);
 	name = ft_tmpname();
 	if(ft_redir_in(lex_list,name))
 		return (-1);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
-//	ft_call_builtin(simple_cmd, envtab);
-	ft_call_execve(simple_cmd, envtab);
+	ft_call_function(simple_cmd, envtab);
 	free(simple_cmd);
 	unlink(name);
 	free (name);
-	dup2(fd[0], 0);
-	dup2(fd[1], 1);
 	return (0);
 }
 
-t_list *ft_next_pipe(t_list *lex_list)
+int	ft_excute_simplecmd(t_list *lex_list, char **envtab)
+{
+	int pid;
+	int status;
+
+	pid = fork();
+	if (pid == 0)
+		ft_simplecmd(lex_list, envtab);
+    else if (pid < 0)
+        exit(EXIT_FAILURE);
+    else
+	{
+		if (waitpid(pid, &status, 0) != pid)
+			exit(EXIT_FAILURE);
+	}
+	return (0);
+}
+	
+t_list *ft_next_pipecmd(t_list *lex_list)
 {
 	int		token;
 	t_list  *list_ptr;
@@ -317,30 +334,33 @@ t_list *ft_next_pipe(t_list *lex_list)
 	while (list_ptr)
 	{
 		token = ((t_token *)(list_ptr->content))->token;
+		list_ptr = list_ptr->next;
 		if (token == L_PIPE)
 			return (list_ptr);
-		list_ptr = list_ptr->next;
 	}
 	return (NULL);
 }
-/* wait pipe
+
 int ft_parser_cmd(t_list *lex_list, char **envtab)
 {
 	t_list  *list_ptr;
-	int		fd[2];
-	int		pid;
-	int 	signal;
+	t_list	*next_cmd;
+	int		stdfd;
 
 	list_ptr = lex_list;
 	if (ft_check_syntax(lex_list))
 		return (-1);
+	stdfd = dup(0);
 	while (list_ptr)
 	{
-		ft_excute_simplecmd(list_ptr, envtab);
-		list_ptr = ft_next_pipe(list_ptr);
-		if (list_ptr)
-		{
-			ft_pipe();
+		next_cmd = ft_next_pipecmd(list_ptr);
+		if (next_cmd)
+			ft_pipe(list_ptr, envtab);
+		else
+			ft_excute_simplecmd(list_ptr, envtab);			
+		list_ptr = next_cmd;
 	}
+	dup2(stdfd, 0);
+	close(stdfd);
 	return (0);
-}*/ 
+}

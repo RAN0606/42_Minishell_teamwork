@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/13 20:01:13 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/14 10:12:35 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int main(int argc, char **argv, char **env)
 		}
 //		printf("token_list %p\n", token_list);
 //		ft_lstiter (token_list, ft_print_token);		
-//		ft_parser_cmd(token_list, env);
-		ft_excute_simplecmd(token_list, env);
+		ft_parser_cmd(token_list, env);
+//		ft_excute_simplecmd(token_list, env);
 		ft_lstclear(&token_list, ft_free_token);
 	//	printf("token_list %p\n", token_list);
 		free(cmd);

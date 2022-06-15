@@ -6,7 +6,7 @@
 #    By: rliu <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/06/13 14:28:16 by rliu             ###   ########.fr        #
+#    Updated: 2022/06/15 18:49:38 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,15 @@ SRC :=main.c \
 	lexer_parser/lex_word.c \
 	lexer_parser/lexer.c \
 	lexer_parser/lex_utils.c \
-	lexer_parser/par3.c \
-	excve/ft_excve.c \
-	builtins/ft_echo.c
-
+	excute/ft_pipe.c \
+	excute/ft_excve.c \
+	builtins/ft_echo.c \
+	lexer_parser/ft_check_syntax.c\
+	excute/par_excute.c \
+	excute/ft_call_function.c \
+	excute/ft_redir_in.c \
+	excute/ft_redir_out.c 
+#	lexer_parser/par3.c \
 
 OBJ := $(SRC:%.c=%.o)
 

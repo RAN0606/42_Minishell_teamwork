@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/13 19:59:33 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/15 18:40:11 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -99,14 +99,24 @@ t_word	*ft_readword(char *temp_cmd, char **envtab);
 char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 /*******lex_redir.c*/
 char	*ft_handle_redir(char *cmd, t_list **token_list);
-/********parser.c***********************/
-
-//int		ft_parser_cmd(t_list *lex_list,char **envtab);
-
+/*******ft_check_syntax.c*/
+int	ft_check_syntax(t_list *lex_list);
+/********par_excute************************/
+int	ft_simplecmd(t_list *lex_list, char **envtab);
+int		ft_parser_cmd(t_list *lex_list,char **envtab);
 int	ft_excute_simplecmd(t_list *lex_list, char **envtab);
-/********************ft_excve.c**********************/
+/****ft_excve.c***/
 int	ft_excuvp(char **simplecmd, char **envtab);
-int ft_call_execve(char **simplecmd, char **envtab);
+
+/****ft_call_function.c*/
+int ft_call_function(char **cmdtab, char **envtab);
+
+int		ft_redir_in(t_list *lex_list, char *name);
+
+char *ft_tmpname(void);
+int		ft_redir_out(t_list *lex_list);
+
+int ft_pipe(t_list *lex_list, char **envtab);
 /***************************builtin*********************/
 int	ft_pwd(void);
 int     ft_echo(char **args);
