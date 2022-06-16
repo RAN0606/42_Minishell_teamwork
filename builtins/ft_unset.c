@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:04:35 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/31 11:05:13 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/16 11:49:27 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ char    **unset_env(char **old_env, int index)
     return (new_env);
 }
 
-void    ft_unset(char   **inputs, t_data *data)
+void    ft_unset(char   **list_cmd, t_data *data)
 {
     int i;
     int index;
 
     i = 1;
-    while (inputs[i])
+    while (list_cmd[i])
     {
-        if (check_export(inputs[i])) //check_export is in the ft_export_utils.c
+        if (check_export(list_cmd[i])) //check_export is in the ft_export_utils.c
         {
-            index = ft_index(inputs[i], data);
+            index = ft_index(list_cmd[i], data);
             if (index > 0)
                 data->env = unset_env(data->env, index);
             i++;

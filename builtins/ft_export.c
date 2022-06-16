@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:46 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/02 11:23:12 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/16 11:48:27 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,22 @@ void    export_only(t_data *data)
     ft_free_env(temp_env);
 }
 
-void    ft_export(char **inputs, t_data *data)
+void    ft_export(char **list_cmd, t_data *data)
 {
     int i;
     int index;
 
     i = 1;
-    if (inputs[i])
+    if (list_cmd[i])
     {
-        while (inputs[i])
+        while (list_cmd[i])
         {
-            index = ft_index(inputs[i], data);
-            if (index >= 0 && check_export(inputs[i]))
-                change_var(inputs[i], data, index);
-            else if (check_export(inputs[i]))
+            index = ft_index(list_cmd[i], data);
+            if (index >= 0 && check_export(list_cmd[i]))
+                change_var(list_cmd[i], data, index);
+            else if (check_export(list_cmd[i]))
             {
-                data->env = export_env(data->env, inputs[i]);
+                data->env = export_env(data->env, list_cmd[i]);
                 if (!data->env)
                     exit(EXIT_FAILURE);
             }

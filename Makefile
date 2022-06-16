@@ -6,7 +6,7 @@
 #    By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/06/14 16:55:54 by qxia             ###   ########.fr        #
+#    Updated: 2022/06/16 16:16:13 by qxia             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,30 @@ IFLAGS	= -I. -I./libft
 LFLAGS	= -L./libft -lft -lreadline
 
 
-SRC := main.c \
-	builtins/ft_pwd.c \
-	builtins/ft_env.c \
+SRC :=main.c \
+	lexer_parser/lex_dollar.c \
+	lexer_parser/lex_quote.c \
+	lexer_parser/lex_redir.c \
+	lexer_parser/lex_word.c \
+	lexer_parser/lexer.c \
+	lexer_parser/lex_utils.c \
+	excute/ft_pipe.c \
+	excute/ft_excve.c \
 	builtins/ft_echo.c \
-	builtins/ft_cd.c \
+	builtins/ft_pwd.c \
 	builtins/ft_cd_utils.c \
-	builtins/ft_unset.c \
-	builtins/ft_export.c \
+	builtins/ft_cd.c \
+	builtins/ft_env.c \
+	builtins/ft_exit.c \
 	builtins/ft_export_utils.c \
-	builtins/ft_exit.c 
+	builtins/ft_export.c \
+	builtins/ft_unset.c \
+	lexer_parser/ft_check_syntax.c\
+	excute/par_excute.c \
+	excute/ft_call_function.c \
+	excute/ft_redir_in.c \
+	excute/ft_redir_out.c 
+#	lexer_parser/par3.c \
 
 OBJ := $(SRC:%.c=%.o)
 
