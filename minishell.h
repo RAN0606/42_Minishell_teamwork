@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/16 16:06:15 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/17 16:33:38 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	ft_excuvp(char **simplecmd, char **envtab);
 /****ft_call_function.c*/
 int ft_call_function(char **cmdtab, char **envtab);
 
-int		ft_redir_in(t_list *lex_list, char *name);
+int		ft_redir_in(t_list *lex_list);
 
 char *ft_tmpname(void);
 int		ft_redir_out(t_list *lex_list);

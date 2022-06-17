@@ -6,18 +6,18 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/16 16:04:50 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/17 11:06:17 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "minishell.h"
 
 int		ft_call_builtin(char **list_cmd)
 {
 	if (ft_strcmp(list_cmd[0],"echo") == 0)
 		exit(ft_echo(list_cmd));
 	else if (!ft_strcmp(list_cmd[0], "pwd"))
-		ft_pwd();
-	else if (!ft_strcmp(list_cmd[0], "cd"))
+		exit(ft_pwd());
+/*	else if (!ft_strcmp(list_cmd[0], "cd"))
 		ft_cd(list_cmd, data);
 	else if (!ft_strcmp(list_cmd[0], "env"))
 		ft_env(data->env);
@@ -26,7 +26,7 @@ int		ft_call_builtin(char **list_cmd)
 	else if (!ft_strcmp(list_cmd[0], "export"))
 		ft_export(list_cmd, data);
 	else if (!ft_strcmp(list_cmd[0], "unset"))
-		ft_unset(list_cmd, data);
+		ft_unset(list_cmd, data);*/
 	/*else
 	{
 		ft_exec(list_cmd, data);

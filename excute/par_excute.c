@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/15 18:35:55 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/17 16:57:35 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -52,20 +52,18 @@ char	**ft_save_simple_cmd(t_list *lex_list)
 	}
 	return (list_cmd);
 }
+
 int	ft_simplecmd(t_list *lex_list, char **envtab)
 {
 	char	**simple_cmd;
-	char	*name;
+	//char	*name;
 
-	name = ft_tmpname();
-	if(ft_redir_in(lex_list,name))
-		return (-1);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	ft_call_function(simple_cmd, envtab);
 	free(simple_cmd);
-	unlink(name);
-	free (name);
+	//unlink(name);
+	//free (name);
 	return (0);
 }
 
@@ -116,6 +114,8 @@ int ft_parser_cmd(t_list *lex_list, char **envtab)
 	while (list_ptr)
 	{
 		next_cmd = ft_next_pipecmd(list_ptr);
+		if(ft_redir_in(lex_list))
+			return (-1);
 		if (next_cmd)
 			ft_pipe(list_ptr, envtab);
 		else
