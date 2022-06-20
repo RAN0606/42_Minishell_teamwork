@@ -51,11 +51,14 @@ char	**ft_getenv(char **env)
 	return (envtab);
 }
 
-void ft_env(char **envtab)// this is just a test for env
+int ft_env(t_data *data)
 {
 	int i;
+	char **envtab;
 
+	envtab = data->env;
 	i = 0;
 	while (*(envtab+i))
 		printf("%s\n", envtab[i++]);
+	return (0);
 }

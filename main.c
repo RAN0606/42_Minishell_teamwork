@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/14 10:12:35 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/20 15:42:13 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,19 @@ void ft_handler(int sigu)
 }
 int main(int argc, char **argv, char **env)
 {
+	char	*cmd;
+	t_list	*token_list;
+	t_data	data;	
+
 	(void)argc;
 	(void)argv;
-	char *cmd;
-	char prompt[] = "mimishell:";
-	t_list	*token_list;
-	
 	while (1)
 	{
 		printf("\033[0;32m");
-		cmd = readline(prompt);
-		printf("\033[0m");
-		add_history(cmd);
+		cmd = readline("minishell: ");
+		add_history(cmd);	
 		if (!cmd)
-		{
-			printf("exit\n");
-			exit(EXIT_SUCCESS);
-		}	
-		if (!cmd)
-			cmd = readline(prompt);
+			cmd = readline("minishell: ");
 		if (!cmd[0])
 		{
 			free(cmd);
@@ -70,12 +64,9 @@ int main(int argc, char **argv, char **env)
 				free (cmd);
 			continue ;
 		}
-//		printf("token_list %p\n", token_list);
-//		ft_lstiter (token_list, ft_print_token);		
-		ft_parser_cmd(token_list, env);
-//		ft_excute_simplecmd(token_list, env);
+		data.env = ft_getenv(env);
+		ft_parser_cmd(token_list, env, &data);
 		ft_lstclear(&token_list, ft_free_token);
-	//	printf("token_list %p\n", token_list);
 		free(cmd);
 		signal(SIGINT, ft_handler);
 	}

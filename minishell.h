@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/17 16:33:38 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/20 14:30:33 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 #include <sys/wait.h>
 #include "libft/libft.h"
 
-#	define BUFFER_SIZE 1
+#	define BUFFER_SIZE 4096
+
 enum token {L_WORD = 1, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
 
 typedef struct s_token
@@ -125,40 +126,40 @@ char	*ft_handle_redir(char *cmd, t_list **token_list);
 /*******ft_check_syntax.c*/
 int	ft_check_syntax(t_list *lex_list);
 /********par_excute************************/
-int	ft_simplecmd(t_list *lex_list, char **envtab);
-int		ft_parser_cmd(t_list *lex_list,char **envtab);
-int	ft_excute_simplecmd(t_list *lex_list, char **envtab);
+int	ft_simplecmd(t_list *lex_list, char **envtab,t_data *data);
+int		ft_parser_cmd(t_list *lex_list,char **envtab, t_data *data);
+int	ft_excute_simplecmd(t_list *lex_list, char **envtab, t_data *data);
 /****ft_excve.c***/
 int	ft_excuvp(char **simplecmd, char **envtab);
 
 /****ft_call_function.c*/
-int ft_call_function(char **cmdtab, char **envtab);
-
+int ft_call_function(char **cmdtab, char **envtab, t_data *data);
 int		ft_redir_in(t_list *lex_list);
-
 char *ft_tmpname(void);
 int		ft_redir_out(t_list *lex_list);
 
-int ft_pipe(t_list *lex_list, char **envtab);
+int ft_pipe(t_list *lex_list, char **envtab, t_data *data);
 /***************************builtin*********************/
 int	ft_pwd(void);
 int     ft_echo(char **args);
 char	*get_next_line(int fd);
 int	ft_envlen(char **env);
 char	**ft_getenv(char **env);
-void	ft_env(char **envtab);
+int 	ft_env(t_data *data);
 void	ft_free_env(char **envtab);
 void	change_env_pwd(t_data *data);
 void	change_env_oldpwd(t_data    *data);
 int	change_pwd(t_data *data, char *input);
 int	cd_only(t_data *data);
 int	cd_path(char **args, t_data *data);
-void	ft_cd(char **args, t_data *data);
+int	ft_cd(char **args, t_data *data);
 int	ft_index(char   *name, t_data *data);
 void	change_var(char *new_var, t_data *data, int index);
 char	**export_env(char    **old_env, char *export);
 int	check_export(char *str);
 void    print_export(char **env);
-void    ft_exit(t_cmd   *cmd);
+void    ft_export(char **list_cmd, t_data *data);
+void    ft_exit(char **cmd);
+void    ft_unset(char   **list_cmd, t_data *data);
 
 #endif

@@ -42,14 +42,14 @@ static int  check_nbr(char *str)
     return (1);
 }
 
-void    ft_exit(t_cmd   *cmd) //t_cmd pas encore defini
+void    ft_exit(char   **cmd) //t_cmd pas encore defini
 {
     if (!cmd)
         return ;
     else if (cmd && cmd->cmd[1] && cmd->cmd[2] && ft_strisdigit(cmd->cmd[1]))
     {
         ft_putstr_fd("mimishell: exit: too many arguments\n", 2);
-        return ;
+        return;
     }
     else if (cmd && cmd->cmd[1] && !(ft_strisdigit(cmd->cmd[1])) && !check_nbr(cmd->cmd[1]))
     {

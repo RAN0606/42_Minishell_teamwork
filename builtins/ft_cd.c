@@ -31,18 +31,28 @@ int	cd_path(char **args, t_data *data)
 	return (1);
 }
 
-void	ft_cd(char **args, t_data *data)
+int	ft_cd(char **args, t_data *data)
 {
 	if (!args[1])
 	{
 		if (!cd_only(data))
+		{
 			ft_putstr_fd("cd: HOME: is undefined\n", 2);
+			return (1);
+		}
 	}
 	if (args[1] && args[2])
+	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (1);
+	}
 	else
 	{
 		if (!cd_path(args, data))
+		{
 			ft_putstr_fd("cd: no such file or directory\n", 2);
+			return (2);
+		}
 	}
+	return (0);
 }

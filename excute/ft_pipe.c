@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int ft_pipe(t_list *lex_list, char **envtab)
+int ft_pipe(t_list *lex_list, char **envtab, t_data *data)
 {
     pid_t   pid;
     int     fd[2];
@@ -28,7 +28,7 @@ int ft_pipe(t_list *lex_list, char **envtab)
 		dup2(fd[1], 1);
         close(fd[0]);
         close(fd[1]);
-		ft_simplecmd(lex_list, envtab);
+		ft_simplecmd(lex_list, envtab, data);
     }
     else if (pid < 0)
         exit(EXIT_FAILURE);
