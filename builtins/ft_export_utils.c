@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:02:31 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/10 15:46:27 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/21 13:02:52 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ void    print_export(char **env)
         ft_putstr_fd("declare -x ",1);
         while (env[i][j])
         {
-            if (env[i][j] == '=')
-            {
-                write(1, "=", 1);
+            if (env[i][j] == '\\' || env[i][j] == '$' ||
+            env[i][j] == '\"')
+                write(1, "\\", 1);
+            write(1, &env[i][j], 1);
+            if (env[i][j] == '=' && equal-- == 1)
                 write(1, "\"", 1);
-            }
-            else
-                write(1, &env[i][j], 1);
             j++;
         }
         if (equal != 1)
