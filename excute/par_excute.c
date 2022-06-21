@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/20 14:24:48 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/21 16:30:30 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -119,7 +119,7 @@ int ft_parser_cmd(t_list *lex_list, char **envtab, t_data *data)
 		if (next_cmd)
 			ft_pipe(list_ptr, envtab, data);
 		else
-			ft_excute_simplecmd(list_ptr, envtab, data);			
+			ft_simplecmd(list_ptr, envtab, data);			
 		list_ptr = next_cmd;
 	}
 	dup2(stdfd, 0);

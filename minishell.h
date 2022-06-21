@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/20 14:30:33 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/21 14:56:00 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ void	change_var(char *new_var, t_data *data, int index);
 char	**export_env(char    **old_env, char *export);
 int	check_export(char *str);
 void    print_export(char **env);
-void    ft_export(char **list_cmd, t_data *data);
+int     ft_export(char **list_cmd, t_data *data);
 void    ft_exit(char **cmd);
-void    ft_unset(char   **list_cmd, t_data *data);
+int		ft_unset(char   **list_cmd, t_data *data);
 
 #endif

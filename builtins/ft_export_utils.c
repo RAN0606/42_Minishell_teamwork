@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:02:31 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/21 13:02:52 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/21 16:15:18 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int check_export(char *str)
         return (0);
     while (str[i] && str[i] != '=')
     {
-        if (!ft_isalnum(str[i] && str[i] != '_'))
+        if (!ft_isalnum(str[i]) && str[i] != '_')
             return (0);
         i++;
     }

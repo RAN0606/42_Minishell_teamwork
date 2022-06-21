@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/20 15:42:13 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/21 16:06:41 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	data.env = ft_getenv(env);
 	while (1)
 	{
 		printf("\033[0;32m");
@@ -57,14 +58,13 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			break;
 		}
-		token_list = ft_lexer(cmd, env);
+		token_list = ft_lexer(cmd, data.env);
 		if (!token_list)
 		{
 			if (cmd)
 				free (cmd);
 			continue ;
 		}
-		data.env = ft_getenv(env);
 		ft_parser_cmd(token_list, env, &data);
 		ft_lstclear(&token_list, ft_free_token);
 		free(cmd);

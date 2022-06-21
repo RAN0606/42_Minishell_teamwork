@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:04:35 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/16 11:49:27 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/21 16:35:37 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char    **unset_env(char **old_env, int index)
     return (new_env);
 }
 
-void    ft_unset(char   **list_cmd, t_data *data)
+int   ft_unset(char   **list_cmd, t_data *data)
 {
     int i;
     int index;
@@ -53,7 +53,8 @@ void    ft_unset(char   **list_cmd, t_data *data)
                 data->env = unset_env(data->env, index);
             i++;
         }
-        else
-            ft_putstr_fd("unset: invalid identifier\n", 2);
+        //else
+          //  ft_putstr_fd("unset: invalid identifier\n", 2);
     }
+	return (0);
 }
