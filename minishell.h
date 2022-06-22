@@ -161,5 +161,6 @@ void    print_export(char **env);
 int     ft_export(char **list_cmd, t_data *data);
 void    ft_exit(char **cmd);
 int		ft_unset(char   **list_cmd, t_data *data);
-
+void	ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data);
+int ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data);
 #endif

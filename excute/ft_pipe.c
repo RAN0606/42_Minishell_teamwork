@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/17 17:45:59 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/22 14:32:02 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int ft_pipe(t_list *lex_list, char **envtab, t_data *data)
 		dup2(fd[1], 1);
         close(fd[0]);
         close(fd[1]);
-		ft_simplecmd(lex_list, envtab, data);
+		ft_pipe_simplecmd(lex_list, envtab, data);
     }
     else if (pid < 0)
         exit(EXIT_FAILURE);

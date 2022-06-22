@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:16 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/22 12:09:52 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/22 14:46:08 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int  check_nbr(char *str)
 
 void    ft_exit(char   **cmd) //t_cmd pas encore defini
 {
+	int code;
+	code = 0;
     if (!cmd)
         return ;
     else if (cmd && cmd[1] && cmd[2] && ft_strisdigit(cmd[1]))
@@ -51,7 +53,7 @@ void    ft_exit(char   **cmd) //t_cmd pas encore defini
         ft_putstr_fd("mimishell: exit: too many arguments\n", 2);
         return;
     }
-    else if (cmd && cmd[1] && !(ft_strisdigit(cmd[1])) && !check_nbr(cmd[1]))
+    else if (cmd && cmd[1]&& !(ft_strisdigit(cmd[1])) && !check_nbr(cmd[1]))
     {
         ft_putstr_fd("mimishell: exit: numeric argument required\n", 2);
         exit(2);
@@ -59,6 +61,8 @@ void    ft_exit(char   **cmd) //t_cmd pas encore defini
     else
     {
         ft_putstr_fd("exit\n", 2);
-        exit(ft_atoi(cmd[1]));
+		if (cmd[1])
+			code = ft_atoi(cmd[1]);
+        exit(code);
     }
 }

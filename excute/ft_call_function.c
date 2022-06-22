@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/22 11:59:07 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/22 14:39:33 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -74,4 +74,21 @@ int	ft_call_function(char **cmdtab, char **envtab, t_data *data)
 		return (ft_call_excuve(cmdtab, data));
 	}
 	return (0);
+}
+
+void ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
+{
+	int code;
+
+	(void)envtab;
+	code = ft_call_builtin(cmdtab, data);
+	if (code == -1)
+	{
+		if (ft_excuvp(cmdtab, data->env)==-1)
+		{
+			printf("cmd not found\n");
+			exit (127);
+		}
+	}
+	exit (code);
 }

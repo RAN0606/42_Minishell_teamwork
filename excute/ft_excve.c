@@ -23,12 +23,12 @@ int	ft_excuvp(char **simplecmd, char **envtab)
 	pathlist = ft_split(path, ':');
 	temp = pathlist - 1;
 	cmdpath = ft_strjoinfree(ft_strdup("/"), ft_strdup(*simplecmd));
-	execve(simplecmd[0], simplecmd, NULL);
+	execve(simplecmd[0], simplecmd, envtab);
 	while (*(++temp))
 		*temp = ft_strjoinfree(*temp, ft_strdup(cmdpath));
 	free(cmdpath);
 	temp = pathlist - 1;
 	while (*(++temp))
-		execve(*temp, simplecmd, NULL);
+		execve(*temp, simplecmd, envtab);
 	return (-1);
 }
