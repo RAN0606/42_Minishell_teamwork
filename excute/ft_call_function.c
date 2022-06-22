@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/21 16:36:46 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/22 11:59:07 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -21,8 +21,8 @@ int		ft_call_builtin(char **list_cmd, t_data *data)
 		return(ft_cd(list_cmd, data));
 	else if (!ft_strcmp(list_cmd[0], "env"))
 		return(ft_env(data));
-	//else if (!ft_strcmp(list_cmd[0], "exit"))
-	//	ft_exit(list_cmd);
+	else if (!ft_strcmp(list_cmd[0], "exit"))
+		ft_exit(list_cmd);
 	else if (!ft_strcmp(list_cmd[0], "export"))
 		return(ft_export(list_cmd, data));
 	else if (!ft_strcmp(list_cmd[0], "unset"))

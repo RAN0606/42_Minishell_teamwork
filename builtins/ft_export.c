@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:46 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/21 16:14:24 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/22 10:16:32 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void    export_only(t_data *data)
 
     i = 0;
     temp_env = ft_getenv(data->env);
-    while (temp_env[i + 1])
+    while (temp_env[i + 1] && temp_env+i+1)
     {
         j = i + 1;
         if (strcmp(temp_env[i], temp_env[j]) > 0)

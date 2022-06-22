@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/21 16:06:41 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/22 11:57:10 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			continue ;
 		}
-		if (ft_strcmp(cmd,"exit") == 0)
+/*		if (ft_strcmp(cmd,"exit") == 0)
 		{
 			printf("exit\n");
 			free(cmd);
 			break;
-		}
+		}*/
 		token_list = ft_lexer(cmd, data.env);
 		if (!token_list)
 		{
