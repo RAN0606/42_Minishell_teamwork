@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/22 14:36:59 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/23 10:39:43 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -57,7 +57,7 @@ int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 {
 	char	**simple_cmd;
 	//char	*name;
-
+	ft_redir_in (lex_list);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	ft_call_function(simple_cmd, envtab, data);
@@ -71,6 +71,7 @@ int	ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 {
 	char	**simple_cmd;
 
+	ft_redir_in(lex_list);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	ft_pipe_call_function(simple_cmd, envtab, data);
@@ -117,24 +118,24 @@ int ft_parser_cmd(t_list *lex_list, char **envtab, t_data *data)
 {
 	t_list  *list_ptr;
 	t_list	*next_cmd;
-	int		stdfd;
+	int		stdfd[2];
 
 	list_ptr = lex_list;
 	if (ft_check_syntax(lex_list))
 		return (-1);
-	stdfd = dup(0);
+	stdfd[0] = dup(0);
+	stdfd[1] = dup(1);
 	while (list_ptr)
 	{
 		next_cmd = ft_next_pipecmd(list_ptr);
-		if(ft_redir_in(lex_list))
-			return (-1);
 		if (next_cmd)
 			ft_pipe(list_ptr, envtab, data);
 		else
 			ft_simplecmd(list_ptr, envtab, data);			
 		list_ptr = next_cmd;
+		dup2(stdfd[1], 1);
 	}
-	dup2(stdfd, 0);
-	close(stdfd);
+	dup2(stdfd[0], 0);
+//	close(stdfd);
 	return (0);
 }

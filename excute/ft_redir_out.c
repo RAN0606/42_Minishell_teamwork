@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/17 17:09:27 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/23 10:34:30 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -43,9 +43,7 @@ int		ft_redir_out(t_list *lex_list)
 {
 	int		token;
 	t_list  *list_ptr;
-	int		stdfd;
 	
-	stdfd=dup(1);
 	list_ptr = lex_list;
 	while (list_ptr)
 	{
@@ -66,7 +64,6 @@ int		ft_redir_out(t_list *lex_list)
 		}	
 		list_ptr = list_ptr->next;
 	}
-	dup2(stdfd,1);
 	return (0);
 }
 
