@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:24:14 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/22 10:51:20 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/23 11:02:08 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 
 int	cd_only(t_data	*data) //only has cd
 {
-	if (ft_index("HOME=", data) < 0 || chdir((strchr(data->env[ft_index("HOME=", data)], '=') + 1)) == -1)
+
+	char *path;
+
+	path = strchr(data->env[ft_index("HOME=", data)], '=') + 1;
+	if (ft_index("HOME=", data) < 0 || chdir(path) == -1)
 		return (0);
-	change_pwd(data, NULL);
+	change_pwd(data, path);
 	return (1);
 }
 
@@ -41,7 +45,7 @@ int	ft_cd(char **args, t_data *data)
 			return (1);
 		}
 	}
-	if (args[1] && args[2])
+	else if (args[1] && args[2])
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
