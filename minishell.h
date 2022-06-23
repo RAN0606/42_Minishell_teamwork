@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/23 16:59:31 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/23 19:05:05 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,44 +81,63 @@ int		ft_check_envvalue(char *keyequal, char **envtab);
 int		ft_check_envkey(char *cmd);
 
 /************lexer.c******************/
+
 t_list	*ft_lexer(char *cmd, char **envtab);
 
 /*****lex_utils.c*/
+
 char	*ft_strjoinfree(char *s1, char *s2);
 void	ft_print_token(void *token);
 void	ft_free_token(void *token);
 t_list	*ft_token(int token, char *str);
 int		ft_add_token_element(t_list **token_list, int token, char *str);
+
 /*******lex_dollar.c*/
+
 char	*ft_return_envvalue(char *key, char **envtab);
 char	*ft_dollar_inword(char *temp_cmd, char **envtab, t_word *word);
 char	*ft_handle_dollar(char *cmd, char **envtab);
+
 /********lex_quote.c*/
+
 int		ft_chr_quote(char *cmd, char c);
 char	*ft_return_quotevalue(char *cmd, char c, char **envtab, int j);
 char	*ft_handle_quote(char *temp_cmd, t_word *word, char **envtab);
+
 /*******lex_word.c*/
+
 int		ft_check_signe(char c);
 t_word	*ft_readword(char *temp_cmd, char **envtab);
 char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
+
 /*******lex_redir.c*/
+
 char	*ft_handle_redir(char *cmd, t_list **token_list);
+
 /*******ft_check_syntax.c*/
+
 int		ft_check_syntax(t_list *lex_list);
+
 /********par_excute************************/
+
 int		ft_simplecmd(t_list *lex_list, char **envtab, t_data *data);
 int		ft_parser_cmd(t_list *lex_list, char **envtab, t_data *data);
 int		ft_excute_simplecmd(t_list *lex_list, char **envtab, t_data *data);
+
 /****ft_excve.c***/
+
 int		ft_excuvp(char **simplecmd, char **envtab);
 
 /****ft_call_function.c*/
+
 int		ft_call_function(char **cmdtab, char **envtab, t_data *data);
 int		ft_redir_in(t_list *lex_list);
 char	*ft_tmpname(void);
 int		ft_redir_out(t_list *lex_list);
 int		ft_pipe(t_list *lex_list, char **envtab, t_data *data);
+
 /***************************builtin*********************/
+
 int		ft_pwd(void);
 int		ft_echo(char **args);
 char	*get_next_line(int fd);
