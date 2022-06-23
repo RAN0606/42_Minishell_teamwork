@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/23 19:05:05 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/23 19:22:17 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@
 
 # define BUFFER_SIZE 4096
 
-enum token {L_WORD = 1, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
+typedef enum token
+{
+	L_WORD = 1,
+	L_PIPE,
+	L_INPUT,
+	L_OUTPUT,
+	L_APPEND,
+	L_HEREDOC
+}token;
 
 typedef struct s_token
 {
@@ -50,22 +58,22 @@ struct g_ms_info
 };
 
 //two structures below are from qin_branch_builtins 
-typedef struct	s_data
+typedef struct s_data
 {
 	char	**env;
 	char	*pwd;
-	int	fd_in;
-	int	fd_out;
-	int	redir;
+	int		fd_in;
+	int		fd_out;
+	int		redir;
 }t_data;
 
 typedef struct s_cmd  //just copy xue's
 {
-	char		**cmd;
-	t_list		*in_streams;
-	t_list		*in_stream_head;
-	t_list		*out_streams;
-	t_list		*out_streams_head;
+	char	**cmd;
+	t_list	*in_streams;
+	t_list	*in_stream_head;
+	t_list	*out_streams;
+	t_list	*out_streams_head;
 	int		flag;
 	int		dlr;
 }t_cmd;
