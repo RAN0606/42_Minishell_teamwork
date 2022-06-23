@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:02:31 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/23 12:31:44 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/23 15:15:44 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,25 @@ void	print_export(char **env)
 			write(1, "\"", 1);
 		write(1, "\n", 1);
 	}
+}
+
+char	**export_env(char **old_env, char *export)
+{
+	int		i;
+	char	**new_env;
+
+	i = 0;
+	new_env = malloc(sizeof(char *) * (ft_envlen(old_env) + 1));
+	if (!new_env)
+		exit(EXIT_FAILURE);
+	while (old_env[i])
+	{
+		new_env[i] = ft_strdup(old_env[i]);
+		i++;
+	}
+	ft_free_env(old_env);
+	new_env[i] = ft_strdup(export);
+	i++;
+	new_env[i] = NULL;
+	return (new_env);
 }
