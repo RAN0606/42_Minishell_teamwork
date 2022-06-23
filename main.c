@@ -6,22 +6,13 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/22 12:31:36 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/23 15:53:50 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_env(char **env)// this is just a test for env
-{
-	while (*env)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
-}
-
-void ft_handler(int sigu)
+void	ft_handler(int sigu)
 {
 	if (sigu == SIGINT)
 	{
@@ -31,7 +22,8 @@ void ft_handler(int sigu)
 		rl_redisplay();
 	}
 }
-int main(int argc, char **argv, char **env)
+
+int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	t_list	*token_list;
@@ -45,7 +37,7 @@ int main(int argc, char **argv, char **env)
 		signal(SIGINT, ft_handler);
 		printf("\033[0;32m");
 		cmd = readline("minishell: ");
-		add_history(cmd);	
+		add_history(cmd);
 		if (!cmd)
 		{
 			printf("exit\n");
