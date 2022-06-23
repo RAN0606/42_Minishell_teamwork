@@ -6,18 +6,15 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:24:14 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:08 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/23 12:55:22 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//hander with only cd, but not cd -
-// chdir() changes the current working directory of the calling process to the directory specified in path
 
-int	cd_only(t_data	*data) //only has cd
+int	cd_only(t_data	*data)
 {
-
-	char *path;
+	char	*path;
 
 	path = strchr(data->env[ft_index("HOME=", data)], '=') + 1;
 	if (ft_index("HOME=", data) < 0 || chdir(path) == -1)
@@ -29,7 +26,7 @@ int	cd_only(t_data	*data) //only has cd
 int	cd_path(char **args, t_data *data)
 {
 	(void)data;
-	if (chdir(args[1]) == -1) //chdir returns -1 if it fails to change disectory
+	if (chdir(args[1]) == -1)
 		return (0);
 	change_pwd(data, args[1]);
 	return (1);
