@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/23 15:53:50 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/24 18:09:26 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_handler(int sigu)
 {
-	if (sigu == SIGINT)
+	if (sigu == SIGINT && EINTR == errno)
 	{
 		ft_putstr_fd("\n", 0);
 		rl_on_new_line();

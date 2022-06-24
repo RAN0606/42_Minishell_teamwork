@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/23 19:22:17 by qxia             ###   ########.fr       */
+/*   Updated: 2022/06/24 13:09:39 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ typedef struct s_word
 	int		nb;
 }t_word;
 
-struct g_ms_info
-{
-	char	**env_tab;
-	t_list	*lex_list;
-	t_list	*cmd_tab_list;
-};
-
 //two structures below are from qin_branch_builtins 
 typedef struct s_data
 {
@@ -67,7 +60,7 @@ typedef struct s_data
 	int		redir;
 }t_data;
 
-typedef struct s_cmd  //just copy xue's
+typedef struct s_cmd//just copy xue's
 {
 	char	**cmd;
 	t_list	*in_streams;
