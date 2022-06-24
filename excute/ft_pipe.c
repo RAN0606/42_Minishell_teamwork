@@ -6,13 +6,13 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/22 14:32:02 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/24 19:16:06 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_pipe(t_list *lex_list, char **envtab, t_data *data)
+/*int ft_pipe(t_list *lex_list, char **envtab, t_data *data)
 {
     pid_t   pid;
     int     fd[2];
@@ -44,4 +44,54 @@ int ft_pipe(t_list *lex_list, char **envtab, t_data *data)
 		close(fd[0]);
 	}
     return (1);
+}*/
+void		first_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
+{
+	if (pid == 0)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		ft_pipe_simplecmd(lex_list, data->env, data);
+		exit(EXIT_SUCCESS);
+	}
+}
+
+void	second_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
+{
+	if (pid == 0)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		close(fd[1]);
+		ft_pipe(lex_list, data);
+		exit(EXIT_SUCCESS);
+	}
+}
+int ft_pipe(t_list *lex_list , t_data *data)
+{
+	int pid[2];
+	int fd[2];
+	int	status[2];
+	t_list *pipecmd;
+	t_list *list_ptr;
+		
+	list_ptr = lex_list;
+	if (pipe(fd) == -1)
+        exit(EXIT_FAILURE);
+	pipecmd = ft_next_pipecmd(list_ptr);
+	if (pipecmd)
+	{
+		pid[0] = fork();
+		first_cmd(pid[0], list_ptr, data, fd);	
+		pid[1] = fork();
+		second_cmd(pid[1], pipecmd, data, fd);
+	}
+	else
+		ft_pipe_simplecmd(list_ptr, data->env, data);
+	close(fd[0]);
+	close(fd[1]);
+	wait(&status[0]);
+	wait(&status[1]);
+	return (0);
 }
