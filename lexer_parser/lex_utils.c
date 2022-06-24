@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:00:52 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/30 16:12:33 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/24 15:50:16 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -15,7 +15,9 @@ char	*ft_strjoinfree(char *s1, char *s2)
 {
 	char	*s;
 
-	if (!s1 || !s2)
+	if (!s2)
+		return (s1);
+	if (!s1)
 		return (0);
 	s = (char *)malloc(sizeof(*s) * ((ft_strlen(s1) + (ft_strlen(s2) + 1))));
 	if (!s)
