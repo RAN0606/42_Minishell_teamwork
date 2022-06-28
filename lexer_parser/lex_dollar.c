@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/05/30 16:23:00 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/27 12:44:17 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ char	*ft_dollar_inword(char *temp_cmd, char **envtab, t_word *word)
 	else
 	{
 		env_key = ft_substr(temp_cmd, 1, j - 1);
-		env_value = ft_return_envvalue(env_key, envtab);
+		if (ft_strcmp("?", env_key) == 0)
+			env_value = ft_itoa(g_status);
+		else
+			env_value = ft_return_envvalue(env_key, envtab);
 		free(env_key);
 		word->str = ft_strjoinfree(word->str, env_value);
 	}	
@@ -79,12 +82,15 @@ char	*ft_handle_dollar(char *cmd, char **envtab)
 	int		j;
 
 	j = ft_check_envkey(cmd);
-	if (j == 1)
+	if (j == 1)	
 		return (ft_strdup("$"));
 	else if (j > 1)
 	{
 		env_key = ft_substr(cmd, 1, j - 1);
-		env_value = ft_return_envvalue(env_key, envtab);
+		if (ft_strcmp("?", env_key) == 0)
+			env_value = ft_itoa(g_status);
+		else
+			env_value = ft_return_envvalue(env_key, envtab);
 		free(env_key);
 		return (env_value);
 	}	

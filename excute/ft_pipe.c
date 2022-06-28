@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/24 19:16:06 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/27 13:13:11 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int ft_pipe(t_list *lex_list , t_data *data)
 		ft_pipe_simplecmd(list_ptr, data->env, data);
 	close(fd[0]);
 	close(fd[1]);
-	wait(&status[0]);
-	wait(&status[1]);
-	return (0);
+	waitpid(pid[0], &status[0], 0);
+	waitpid(pid[1], &status[1], 0);
+	g_status = WEXITSTATUS(status[1]);
+	return (g_status);
 }

@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:24:14 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/23 11:02:08 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/27 14:53:21 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_cd(char **args, t_data *data)
 		if (!cd_path(args, data))
 		{
 			ft_putstr_fd("cd: no such file or directory\n", 2);
-			return (2);
+			return (1);
 		}
 	}
 	return (0);

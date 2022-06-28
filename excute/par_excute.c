@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/24 19:18:18 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/27 13:09:42 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -57,13 +57,15 @@ int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 {
 	char	**simple_cmd;
 	int		oldfd[2];
-	//char	*name;
+	int		code;
+	
+	code = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
 	ft_redir_in (lex_list);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
-	ft_call_function(simple_cmd, envtab, data);
+	code = ft_call_function(simple_cmd, envtab, data);
 	free(simple_cmd);
 	dup2(oldfd[0], 0);
 	dup2(oldfd[1], 1);
@@ -71,7 +73,7 @@ int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 	close(oldfd[1]);
 	//unlink(name);
 	//free (name);
-	return (0);
+	return (code);
 }
 
 int	ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data)
@@ -135,6 +137,7 @@ int ft_parser_cmd(t_list *lex_list, char **envtab, t_data *data)
 		code = ft_pipe(lex_list, data);
 	else if (list_ptr)
 		code = ft_simplecmd(lex_list, envtab, data);
+	g_status = code;
 	return (code);
 }
 

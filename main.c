@@ -6,12 +6,13 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/22 12:31:36 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/27 15:48:13 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int g_status;
 void print_env(char **env)// this is just a test for env
 {
 	while (*env)
@@ -40,6 +41,8 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	data.env = ft_getenv(env);
+	data.pwd = getcwd(NULL, 0);
+//	ggg_exit_code = 0;
 	while (1)
 	{
 		signal(SIGINT, ft_handler);

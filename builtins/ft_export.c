@@ -45,7 +45,7 @@ char    **export_env(char    **old_env, char *export)
     char    **new_env;
 
     i = 0;
-    new_env = malloc(sizeof(char *) * (ft_envlen(old_env) + 1));
+    new_env = malloc(sizeof(char *) * (ft_envlen(old_env) + 2));
     if (!new_env)
         exit(EXIT_FAILURE);
     while (old_env[i])

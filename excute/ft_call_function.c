@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/22 14:39:33 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/27 14:49:51 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -34,6 +34,13 @@ int		ft_call_builtin(char **list_cmd, t_data *data)
 	return (-1);
 }
 
+void	ft_perror(char *str)
+{
+	int len;
+
+	len = ft_strlen(str);
+	write(2, str, len + 1);
+}
 int 	ft_call_excuve(char **cmdtab, t_data *data)
 {
 	int pid;
@@ -50,7 +57,8 @@ int 	ft_call_excuve(char **cmdtab, t_data *data)
 	{
 		if(ft_excuvp(cmdtab, data->env)==-1)
 		{
-			printf("cmd not found\n");
+			
+			ft_perror("cmd not fount\n");
 			exit(127);
 		}
 	}
@@ -70,10 +78,8 @@ int	ft_call_function(char **cmdtab, char **envtab, t_data *data)
 	(void)envtab;
 	code = ft_call_builtin(cmdtab, data);
 	if (code == -1)
-	{
 		return (ft_call_excuve(cmdtab, data));
-	}
-	return (0);
+	return (code);
 }
 
 void ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
@@ -86,7 +92,7 @@ void ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
 	{
 		if (ft_excuvp(cmdtab, data->env)==-1)
 		{
-			printf("cmd not found\n");
+			ft_perror("cmd not found\n");
 			exit (127);
 		}
 	}
