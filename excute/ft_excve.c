@@ -11,7 +11,17 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+void ft_free_excvp(char **pathlist, char *cmdpath, char *path)
+{
+	char **temp;
+	temp = pathlist-1;
+	while (*(++temp))
+		free(*temp);
+	free(*temp);
+	free(pathlist);
+	free(cmdpath);
+	free(path);
+}		
 int	ft_excuvp(char **simplecmd, char **envtab)
 {
 	char *path;
@@ -26,9 +36,9 @@ int	ft_excuvp(char **simplecmd, char **envtab)
 	execve(simplecmd[0], simplecmd, envtab);
 	while (*(++temp))
 		*temp = ft_strjoinfree(*temp, ft_strdup(cmdpath));
-	free(cmdpath);
 	temp = pathlist - 1;
 	while (*(++temp))
 		execve(*temp, simplecmd, envtab);
+	ft_free_excvp(pathlist, cmdpath, path);
 	return (-1);
 }

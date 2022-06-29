@@ -19,6 +19,7 @@ void 	ft_free_env(char **envtab)
 	i = 0;
 	while(*(envtab + i))
 		free(envtab[i++]);
+	free(envtab[i]);
 	free(envtab);
 }
 

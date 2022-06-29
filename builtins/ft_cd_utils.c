@@ -16,7 +16,7 @@ void    change_env_pwd(t_data *data)
 {
     char    *pwd;
 
-    data->pwd = getcwd(NULL, 0);
+   // data->pwd = getcwd(NULL, 0);
     if (ft_index("PWD", data) >= 0) //ft_index is in the file ft_export.c
     {
         pwd = ft_strjoin("PWD=", data->pwd);

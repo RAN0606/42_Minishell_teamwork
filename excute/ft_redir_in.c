@@ -126,5 +126,6 @@ int		ft_redir_in(t_list *lex_list)
 		close(fd);
 	}
 	unlink(name);
+	free(name);
 	return (0);
 }

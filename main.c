@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/27 15:48:13 by rliu             ###   ########.fr       */
+/*   Updated: 2022/06/29 10:09:43 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,20 @@ void ft_handler(int sigu)
 int main(int argc, char **argv, char **env)
 {
 	char	*cmd;
-	t_list	*token_list;
 	t_data	data;	
 
 	(void)argc;
 	(void)argv;
 	data.env = ft_getenv(env);
 	data.pwd = getcwd(NULL, 0);
-//	ggg_exit_code = 0;
+	cmd=NULL;
+	data.token_list=NULL;
 	while (1)
 	{
 		signal(SIGINT, ft_handler);
 		printf("\033[0;32m");
+		if (data.token_list)
+			ft_lstclear(&(data.token_list),ft_free_token);
 		cmd = readline("minishell: ");
 		add_history(cmd);	
 		if (!cmd)
@@ -59,16 +61,18 @@ int main(int argc, char **argv, char **env)
 			free(cmd);
 			continue ;
 		}
-		token_list = ft_lexer(cmd, data.env);
-		if (!token_list)
+		data.token_list = ft_lexer(cmd, data.env);
+		if (!data.token_list)
 		{
 			if (cmd)
 				free (cmd);
 			continue ;
 		}
-		ft_parser_cmd(token_list, env, &data);
-		ft_lstclear(&token_list, ft_free_token);
+		ft_parser_cmd(data.token_list, env, &data);
+		ft_lstclear(&(data.token_list), ft_free_token);
 		free(cmd);
 	}
+//	ft_free_env(data.env);
+//	free(data.pwd);
 	return (0);
 }

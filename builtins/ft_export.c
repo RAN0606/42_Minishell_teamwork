@@ -68,7 +68,7 @@ void    export_only(t_data *data)
     char    *swap;
 
     i = 0;
-    temp_env = ft_getenv(data->env);
+    temp_env = data->env;
     while (temp_env[i + 1] && temp_env+i+1)
     {
         j = i + 1;
@@ -83,7 +83,6 @@ void    export_only(t_data *data)
             i++;
     }
     print_export(temp_env);
-    ft_free_env(temp_env);
 }
 
 int    ft_export(char **list_cmd, t_data *data)

@@ -41,12 +41,17 @@ char	*ft_return_envvalue(char *key, char **envtab)
 {
 	char	*keyequal;
 	int		index;
+	char	*keyvalue;
 
 	keyequal = ft_strjoin(key, "=");
 	index = -2;
 	index = ft_check_envvalue(key, envtab);
 	if (index >= 0)
-		return (ft_strdup(envtab[index] + ft_strlen(keyequal)));
+	{	
+		keyvalue = ft_strdup(envtab[index] + ft_strlen(keyequal));
+		free (keyequal);
+		return (keyvalue);
+	}
 	return (ft_strdup(""));
 }
 

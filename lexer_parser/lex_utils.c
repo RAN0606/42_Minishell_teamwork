@@ -31,9 +31,10 @@ char	*ft_strjoinfree(char *s1, char *s2)
 
 void	ft_free_token(void *token)
 {
-	if (((t_token *)token)->str)
-		free(((t_token *)token)->str);
+	//if (((t_token *)token)->str)
+	free(((t_token *)token)->str);
 	free((t_token *)token);
+
 }
 
 void	ft_print_token(void *token)
