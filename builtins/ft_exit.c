@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:16 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/22 14:46:08 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/01 16:14:06 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int  check_nbr(char *str)
     return (1);
 }
 
-void    ft_exit(char   **cmd) //t_cmd pas encore defini
+void    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
 {
 	int code;
 	code = 0;
@@ -50,12 +50,16 @@ void    ft_exit(char   **cmd) //t_cmd pas encore defini
         return ;
     else if (cmd && cmd[1] && cmd[2] && ft_strisdigit(cmd[1]))
     {
-        ft_putstr_fd("mimishell: exit: too many arguments\n", 2);
+        ft_putstr_fd("mimishell: exit: too many arguments\n", 2);	
         return;
     }
     else if (cmd && cmd[1]&& !(ft_strisdigit(cmd[1])) && !check_nbr(cmd[1]))
     {
         ft_putstr_fd("mimishell: exit: numeric argument required\n", 2);
+		free(cmd);
+		ft_lstclear(&(data->token_list),ft_free_token);
+		ft_free_env(data->env);
+		free(data->pwd);
         exit(2);
     }
     else
@@ -63,6 +67,11 @@ void    ft_exit(char   **cmd) //t_cmd pas encore defini
         ft_putstr_fd("exit\n", 2);
 		if (cmd[1])
 			code = ft_atoi(cmd[1]);
+		g_status = code;
+		free(cmd);
+		ft_lstclear(&(data->token_list),ft_free_token);
+		ft_free_env(data->env);
+		free(data->pwd);
         exit(code);
     }
 }

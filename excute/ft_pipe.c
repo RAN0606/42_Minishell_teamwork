@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/27 13:13:11 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/01 16:54:11 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,18 @@ void		first_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 
 void	second_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 {
+	t_list *pipecmd;
+	
 	if (pid == 0)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		ft_pipe(lex_list, data);
+		pipecmd = ft_next_pipecmd(lex_list);
+		if (pipecmd)
+			ft_pipe(lex_list, data);
+		else
+			ft_pipe_simplecmd(lex_list, data->env, data);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -87,8 +93,6 @@ int ft_pipe(t_list *lex_list , t_data *data)
 		pid[1] = fork();
 		second_cmd(pid[1], pipecmd, data, fd);
 	}
-	else
-		ft_pipe_simplecmd(list_ptr, data->env, data);
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid[0], &status[0], 0);

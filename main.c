@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/29 10:09:43 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/01 15:38:47 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int main(int argc, char **argv, char **env)
 		if (!cmd)
 		{
 			printf("exit\n");
+			free(data.pwd);
+			ft_free_env(data.env);
 			exit(0);
 		}
 		if (!cmd[0])
