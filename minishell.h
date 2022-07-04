@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/04 11:34:24 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 16:17:53 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include "libft/libft.h"
 
 #	define BUFFER_SIZE 4096
+#	define NAME_MAX	255
 
 enum token {L_WORD = 1, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
 
@@ -79,20 +80,10 @@ typedef struct  s_data
     int     redir;
 }       t_data;
 
-typedef struct s_cmd  //just copy xue's
-{
-	char	**cmd;
-	t_list	*in_streams;
-	t_list	*in_stream_head;
-	t_list	*out_streams;
-	t_list	*out_streams_head;
-	int		flag;
-	int		dlr;
-}		t_cmd;
-
 
 /*******************Env********************/
 
+void ft_handler(int sigu);
 //****env_utils.c*********
 
 int ft_check_envvalue(char *keyequal, char **envtab);
@@ -130,6 +121,7 @@ char	*ft_handle_redir(char *cmd, t_list **token_list);
 int	ft_check_syntax(t_list *lex_list);
 /********par_excute************************/
 
+char *ft_tmpname(void);
 t_list *ft_next_pipecmd(t_list *lex_list);
 int	ft_simplecmd(t_list *lex_list, char **envtab,t_data *data);
 int		ft_parser_cmd(t_list *lex_list,char **envtab, t_data *data);

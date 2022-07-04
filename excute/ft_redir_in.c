@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/17 16:55:35 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 16:59:46 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -82,11 +82,18 @@ int ft_heredoc(t_list *lex_list, char *name)
 		return (-1);
 	line = readline(">");
 	while (ft_strcmp(line, str) != 0)
-	{
+	{	
+		signal(SIGINT, ft_handler);
+		printf("\033[0;32m");
 		ft_putstr_fd(line, fd[0]);
 		ft_putstr_fd("\n", fd[0]);
 		free(line);
 		line = readline(">");
+		if (!line)
+		{
+			ft_perror("Warning: heredocument is ended by end-of-file\n");
+			break ;
+		}
 	}
 	return (0);
 }
@@ -94,32 +101,36 @@ int ft_heredoc(t_list *lex_list, char *name)
 int		ft_redir_in(t_list *lex_list)
 {
 	int		token;
+	int		last_rin;
 	t_list	*list_ptr;
 	int		fd;
 	char	*name;
 
+	last_rin = -1;
 	list_ptr = lex_list;
 	name = ft_tmpname();
 	while (list_ptr)
 	{
 		token = ((t_token *)(list_ptr->content))->token;
 		if (token == L_PIPE)
-			return (0);
+			break;
 		else if (token == L_INPUT)
 		{
 			list_ptr = list_ptr->next;
 			if (ft_input(list_ptr) == 2)
 				return (2);
+			last_rin = token;
 		}
 		else if (token == L_HEREDOC)
 		{		
 			list_ptr = list_ptr->next;
 			if (ft_heredoc(list_ptr, name) == -1)
 				return (3);
+			last_rin = token;
 		}
 			list_ptr = list_ptr->next;
 	}
-	if (token == L_HEREDOC)
+	if (last_rin == L_HEREDOC)
 	{
 		fd = open(name, O_RDONLY);
 		dup2(fd, 0);

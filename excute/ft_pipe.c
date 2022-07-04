@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 15:02:00 by qxia              #+#    #+#             */
-/*   Updated: 2022/07/01 16:54:11 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 17:07:35 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 	}
     return (1);
 }*/
+
 void		first_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 {
 	if (pid == 0)
@@ -53,6 +54,7 @@ void		first_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 		close(fd[0]);
 		close(fd[1]);
 		ft_pipe_simplecmd(lex_list, data->env, data);
+		ft_lstclear(&lex_list, ft_free_token);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -70,7 +72,8 @@ void	second_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 		if (pipecmd)
 			ft_pipe(lex_list, data);
 		else
-			ft_pipe_simplecmd(lex_list, data->env, data);
+			ft_pipe_simplecmd(lex_list, data->env, data);	
+		ft_lstclear(&lex_list, ft_free_token);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -97,6 +100,8 @@ int ft_pipe(t_list *lex_list , t_data *data)
 	close(fd[1]);
 	waitpid(pid[0], &status[0], 0);
 	waitpid(pid[1], &status[1], 0);
+//	if (lex_list)
+//		ft_lstclear(&lex_list , ft_free_token);
 	g_status = WEXITSTATUS(status[1]);
 	return (g_status);
 }

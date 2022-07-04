@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 13:00:09 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/02 10:03:33 by qxia             ###   ########.fr       */
+/*   Updated: 2022/07/04 12:20:10 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**ft_getenv(char **env)
 	i = 0;
 	while (*(env+i))
 		i++;		
-	envtab = (char **)malloc(sizeof(char *) * (i+1));
+	envtab = (char **)malloc(sizeof(char *) * (i + 2));
 	i = 0;
 	while (*(env + i))
 	{
