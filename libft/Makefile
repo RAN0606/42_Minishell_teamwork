@@ -66,7 +66,7 @@ FLAGS = -Wall -Wextra -Werror -fPIE
 NAME = libft.a
 
 %.o:	%.c
-	clang $(FLAGS) -c $< -o $@
+	gcc $(FLAGS) -c $< -o $@
 
 all: $(NAME) bonus 
 

@@ -54,7 +54,8 @@ void		first_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 		close(fd[0]);
 		close(fd[1]);
 		ft_pipe_simplecmd(lex_list, data->env, data);
-		ft_lstclear(&lex_list, ft_free_token);
+		if (data->token_list)
+			ft_lstclear(&(data->token_list), ft_free_token);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -73,7 +74,7 @@ void	second_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 			ft_pipe(lex_list, data);
 		else
 			ft_pipe_simplecmd(lex_list, data->env, data);	
-		ft_lstclear(&lex_list, ft_free_token);
+		ft_lstclear(((&data->token_list)), ft_free_token);
 		exit(EXIT_SUCCESS);
 	}
 }

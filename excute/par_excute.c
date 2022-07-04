@@ -82,6 +82,7 @@ int	ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	ft_pipe_call_function(simple_cmd, envtab, data);
+	ft_free_env(simple_cmd);
 	return (0);
 }
 

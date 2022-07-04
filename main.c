@@ -74,7 +74,7 @@ int main(int argc, char **argv, char **env)
 		ft_lstclear(&(data.token_list), ft_free_token);
 		free(cmd);
 	}
-//	ft_free_env(data.env);
-//	free(data.pwd);
+	ft_free_env(data.env);
+	free(data.pwd);
 	return (0);
 }

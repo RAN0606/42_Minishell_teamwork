@@ -56,6 +56,7 @@ int 	ft_call_excuve(char **cmdtab, t_data *data)
 			free(data->pwd);
 			ft_free_env(data->env);
 			ft_free_env(cmdtab);
+			ft_lstclear(&(data->token_list),ft_free_token);
 			exit(127);
 		}
 	}
@@ -94,6 +95,7 @@ void ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
 			ft_free_env(data->env);
 			data->env = 0;
 			ft_free_env(cmdtab);
+			ft_lstclear(&(data->token_list), ft_free_token);	
 			exit(127);
 		}
 	}
@@ -102,5 +104,6 @@ void ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
 	ft_free_env(data->env);
 	data->env = 0;
 	free(cmdtab);
+	ft_lstclear(&(data->token_list), ft_free_token);	
 	exit(code);
 }
