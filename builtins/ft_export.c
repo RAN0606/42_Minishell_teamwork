@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:46 by qxia              #+#    #+#             */
-/*   Updated: 2022/06/22 10:16:32 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 11:04:01 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int    ft_export(char **list_cmd, t_data *data)
             }
             else
 			{
-                ft_putstr_fd("export: bad identifier\n", 1);
+                ft_putstr_fd("export: bad identifier\n", 2);
 				return (0);
 			}
             i++;

@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:16 by qxia              #+#    #+#             */
-/*   Updated: 2022/07/01 16:14:06 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 11:06:49 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ static int  check_nbr(char *str)
     return (1);
 }
 
-void    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
+int    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
 {
 	int code;
 	code = 0;
     if (!cmd)
-        return ;
+        return(0);
     else if (cmd && cmd[1] && cmd[2] && ft_strisdigit(cmd[1]))
     {
         ft_putstr_fd("mimishell: exit: too many arguments\n", 2);	
-        return;
+        return (1);
     }
     else if (cmd && cmd[1]&& !(ft_strisdigit(cmd[1])) && !check_nbr(cmd[1]))
     {
@@ -74,4 +74,5 @@ void    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
 		free(data->pwd);
         exit(code);
     }
+	return (0);
 }

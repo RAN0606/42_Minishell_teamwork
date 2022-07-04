@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/01 16:28:27 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 11:05:09 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ char	**export_env(char    **old_env, char *export);
 int	check_export(char *str);
 void    print_export(char **env);
 int     ft_export(char **list_cmd, t_data *data);
-void    ft_exit(char **cmd, t_data *data);
+int     ft_exit(char **cmd, t_data *data);
 int		ft_unset(char   **list_cmd, t_data *data);
 void		ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data);
 int ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data);
