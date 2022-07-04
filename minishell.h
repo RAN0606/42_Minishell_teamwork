@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/04 11:05:09 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 11:34:24 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int		ft_redir_in(t_list *lex_list);
 char *ft_tmpname(void);
 int		ft_redir_out(t_list *lex_list);
 
+void	ft_perror(char *str);
 int ft_pipe(t_list *lex_list, t_data *data);
 /***************************builtin*********************/
 int	ft_pwd(void);

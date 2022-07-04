@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:16 by qxia              #+#    #+#             */
-/*   Updated: 2022/07/04 11:06:49 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/04 11:50:07 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ int    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
         return(0);
     else if (cmd && cmd[1] && cmd[2] && ft_strisdigit(cmd[1]))
     {
+		ft_putstr_fd("exit\n", 1);
         ft_putstr_fd("mimishell: exit: too many arguments\n", 2);	
         return (1);
     }
-    else if (cmd && cmd[1]&& !(ft_strisdigit(cmd[1])) && !check_nbr(cmd[1]))
+    else if (cmd && cmd[1] && (!(ft_strisdigit(cmd[1])) || !check_nbr(cmd[1])))
     {
+		ft_putstr_fd("exit\n", 1);
         ft_putstr_fd("mimishell: exit: numeric argument required\n", 2);
 		free(cmd);
 		ft_lstclear(&(data->token_list),ft_free_token);
