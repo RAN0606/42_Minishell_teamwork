@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/04 14:45:22 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/06 11:12:49 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -103,7 +103,7 @@ void ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
 	data->pwd = 0;
 	ft_free_env(data->env);
 	data->env = 0;
-	free(cmdtab);
+	ft_free_env(cmdtab);
 	ft_lstclear(&(data->token_list), ft_free_token);	
 	exit(code);
 }

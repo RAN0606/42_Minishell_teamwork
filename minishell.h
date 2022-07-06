@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/04 16:17:53 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/06 11:33:55 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,7 @@ typedef struct s_word
 	int		nb;
 }t_word;
 
-
 extern int  g_status;
-/*typedef struct s_count_token
-{
-	int		nb_word;
-	int		nb_redir_in;
-	int		nb_redir_out;
-	int		nb_redir_hd;
-	int		nb_redir_apd;
-}t_count_token;
-
-typedef struct s_cmdtab
-{
-	t_list	*word_list;
-	t_list	*redir_in_list;
-	t_list	*redir_out_list;
-	t_list	is_pipe;
-}t_cmdtab;*/
-
-/*struct g_ms_info
-{
-	char	**env_tab;
-	t_list	*lex_list;
-	t_list  *cmd_tab_list;
-};*/
 
 //two structures below are from qin_branch_builtins 
 typedef struct  s_data

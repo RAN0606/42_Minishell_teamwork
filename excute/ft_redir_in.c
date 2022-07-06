@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/04 16:59:46 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/06 12:35:08 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -69,21 +69,31 @@ char *ft_tmpname(void)
 	return (name);
 }
 
+void ft_hadler_heredoc(int sigu)
+{
+	if (sigu == SIGINT/* && EINTR == errno*/)
+	{		
+		ft_putstr_fd("\n", 0);
+		rl_on_new_line();
+		rl_replace_line("minishell:", 0);
+		rl_redisplay();
+		g_status = 130;
+	}
+}
+
 int ft_heredoc(t_list *lex_list, char *name)
 {
 	char	*str;
 	char	*line;
 	int		fd[2];
-
 	
 	str = ((t_token *)(lex_list->content))->str;
 	fd[0] = open(name, O_CREAT|O_WRONLY|O_TRUNC, 0777);
 	if (!name || fd[0] < 0)
 		return (-1);
 	line = readline(">");
-	while (ft_strcmp(line, str) != 0)
-	{	
-		signal(SIGINT, ft_handler);
+	while (ft_strcmp(line, str) != 0 && line)
+	{				
 		printf("\033[0;32m");
 		ft_putstr_fd(line, fd[0]);
 		ft_putstr_fd("\n", fd[0]);

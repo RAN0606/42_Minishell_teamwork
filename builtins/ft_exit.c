@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:16 by qxia              #+#    #+#             */
-/*   Updated: 2022/07/04 11:50:07 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/06 10:29:36 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
     {
 		ft_putstr_fd("exit\n", 1);
         ft_putstr_fd("mimishell: exit: numeric argument required\n", 2);
-		free(cmd);
+		ft_free_env(cmd);
 		ft_lstclear(&(data->token_list),ft_free_token);
 		ft_free_env(data->env);
 		free(data->pwd);
@@ -70,7 +70,7 @@ int    ft_exit(char   **cmd, t_data *data) //t_cmd pas encore defini
 		if (cmd[1])
 			code = ft_atoi(cmd[1]);
 		g_status = code;
-		free(cmd);
+		ft_free_env(cmd);
 		ft_lstclear(&(data->token_list),ft_free_token);
 		ft_free_env(data->env);
 		free(data->pwd);

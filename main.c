@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/04 16:25:39 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/06 12:10:11 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ void print_env(char **env)// this is just a test for env
 
 void ft_handler(int sigu)
 {
-	if (sigu == SIGINT)
+	if (sigu == SIGINT/* && EINTR == errno*/)
 	{
 		ft_putstr_fd("\n", 0);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_status = 130;
 	}
 }
 int main(int argc, char **argv, char **env)
@@ -46,6 +47,7 @@ int main(int argc, char **argv, char **env)
 	while (1)
 	{
 		signal(SIGINT, ft_handler);
+		signal(SIGQUIT, SIG_IGN);
 		printf("\033[0;32m");
 		if (data.token_list)
 			ft_lstclear(&(data.token_list),ft_free_token);
