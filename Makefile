@@ -43,7 +43,8 @@ SRC :=main.c \
 	builtins/ft_export.c \
 	builtins/ft_env.c \
 	builtins/ft_unset.c \
-	builtins/ft_exit.c
+	builtins/ft_exit.c \
+	get_next_line.c
 
 OBJ := $(SRC:%.c=%.o)
 

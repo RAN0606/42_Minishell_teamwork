@@ -62,7 +62,8 @@ int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 	code = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
-	ft_redir_in (lex_list);
+	if(ft_redir_in (lex_list))
+		return (130);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	code = ft_call_function(simple_cmd, envtab, data);
@@ -78,7 +79,8 @@ int	ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 {
 	char	**simple_cmd;
 
-	ft_redir_in(lex_list);
+	if(ft_redir_in(lex_list))
+		return (130);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
 	ft_pipe_call_function(simple_cmd, envtab, data);

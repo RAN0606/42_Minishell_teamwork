@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/06 12:10:11 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/07 16:54:21 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void print_env(char **env)// this is just a test for env
 
 void ft_handler(int sigu)
 {
-	if (sigu == SIGINT/* && EINTR == errno*/)
+	if (sigu == SIGINT && EINTR == errno)
 	{
 		ft_putstr_fd("\n", 0);
 		rl_on_new_line();
@@ -72,9 +72,9 @@ int main(int argc, char **argv, char **env)
 				free (cmd);
 			continue ;
 		}
+		free(cmd);
 		ft_parser_cmd(data.token_list, env, &data);
 		ft_lstclear(&(data.token_list), ft_free_token);
-		free(cmd);
 	}
 	ft_free_env(data.env);
 	free(data.pwd);
