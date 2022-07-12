@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/07 17:47:17 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/12 16:17:14 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -14,31 +14,21 @@
 
 int ft_input(t_list *lex_list)
 {
-	int		fd;
 	char	*path;
-	int		code;
 
-	code = 0;
 	if (lex_list)
 	{
 		path = ((t_token *)(lex_list->content))->str;
-		fd = open(path, O_RDONLY);
-		if (fd < 0)
+		if (access(path, F_OK) != 0)
 		{
 			printf("%s: No such file or directory\n", path);
-			exit (-1);
-		}
-		else
-		{
-			code = dup2(fd, 0);
-			close(fd);
-			return (code);
+			return (1);
 		}
 	}
 	return (0);
 }
 
-char *ft_filename(void)
+/*char *ft_filename(void)
 {
 	static char	name[256];
 	static int	i;
@@ -71,7 +61,7 @@ char *ft_tmpname(void)
 
 void ft_hadler_heredoc(int sigu)
 {
-	if (sigu == SIGINT/* && EINTR == errno*/)
+	if (sigu == SIGINT)
 	{		
 		ft_putstr_fd("\n", 0);
 		rl_on_new_line();
@@ -126,20 +116,17 @@ int ft_heredoc(t_list *lex_list, char *name)
 		return (g_status);
 	}
 	return (0);
-}
+}*/
 
 int		ft_redir_in(t_list *lex_list)
 {
 	int		token;
-	int		last_rin;
 	t_list	*list_ptr;
 	int		fd;
-	char	*name;
-	int		code ;
+	char	*lastin_name;
 
-	last_rin = -1;
+	lastin_name = 0;
 	list_ptr = lex_list;
-	name = ft_tmpname();
 	while (list_ptr)
 	{
 		token = ((t_token *)(list_ptr->content))->token;
@@ -150,31 +137,25 @@ int		ft_redir_in(t_list *lex_list)
 			list_ptr = list_ptr->next;
 			if (ft_input(list_ptr) == 2)
 				return (2);
-			last_rin = token;
+			lastin_name = ((t_token *)(list_ptr->content))->str;
 		}
 		else if (token == L_HEREDOC)
-		{		
+		{
 			list_ptr = list_ptr->next;
-			code = ft_heredoc(list_ptr, name);
-			if (code == -1)
-				return (3);
-			if (code ==130)
-				{
-					unlink(name);
-					free(name);
-					return (code);
-				}				
-			last_rin = token;
+			lastin_name = ((t_token *)(list_ptr->content))->str;
 		}
-			list_ptr = list_ptr->next;
+		list_ptr = list_ptr->next;
 	}
-	if (last_rin == L_HEREDOC)
+	if (lastin_name != 0)
 	{
-		fd = open(name, O_RDONLY);
+		fd = open(lastin_name, O_RDONLY);
+		if (fd < 0)
+		{
+			perror("fd:");
+			return (1);
+		}
 		dup2(fd, 0);
 		close(fd);
 	}
-	unlink(name);
-	free(name);
 	return (0);
 }

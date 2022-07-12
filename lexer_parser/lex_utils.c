@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:00:52 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/24 15:50:16 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/12 15:26:18 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -32,9 +32,10 @@ char	*ft_strjoinfree(char *s1, char *s2)
 void	ft_free_token(void *token)
 {
 	//if (((t_token *)token)->str)
+	if (((t_token *)token)->is_save == 1)
+		unlink(((t_token *)token)->str);
 	free(((t_token *)token)->str);
 	free((t_token *)token);
-
 }
 
 void	ft_print_token(void *token)
