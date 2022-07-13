@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qxia <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 11:23:17 by qxia              #+#    #+#             */
-/*   Updated: 2022/05/16 11:23:35 by qxia             ###   ########.fr       */
+/*   Updated: 2022/07/13 11:41:41 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_pwd(void)
+int	ft_pwd(void)
 {
 	char	*str;
 
@@ -20,7 +20,7 @@ int ft_pwd(void)
 	str = getcwd(str, BUFFER_SIZE);
 	if (!str)
 	{
-		write(1, "getting cwd error\n",18);
+		write(1, "getting cwd error\n", 18);
 		return (EXIT_FAILURE);
 	}
 	else
