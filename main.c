@@ -6,12 +6,14 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 11:30:17 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:41:38 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-int		g_status;
+
+int	g_status;
+
 void	ft_handler(int sigu)
 {
 	if (sigu == SIGINT && EINTR == errno)
