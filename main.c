@@ -6,15 +6,13 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/12 17:00:03 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 11:30:17 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int g_status;
-
-void ft_handler(int sigu)
+int		g_status;
+void	ft_handler(int sigu)
 {
 	if (sigu == SIGINT && EINTR == errno)
 	{
@@ -26,14 +24,14 @@ void ft_handler(int sigu)
 	}
 }
 
-void ft_init_data (t_data *data, char **env)
+void	ft_init_data(t_data *data, char **env)
 {
 	data->env = ft_getenv(env);
 	data->pwd = getcwd(NULL, 0);
-	data->token_list=NULL;
+	data->token_list = NULL;
 }
 
-void ft_cntl_d(t_data *data)
+void	ft_cntl_d(t_data *data)
 {
 	printf("exit\n");
 	free(data->pwd);
@@ -41,21 +39,21 @@ void ft_cntl_d(t_data *data)
 	exit(0);
 }
 
-void ft_start_cmd(t_data *data, char *cmd, char **env)
+void	ft_start_cmd(t_data *data, char *cmd, char **env)
 {
 	if (!cmd)
 		ft_cntl_d(data);
 	if (!cmd[0])
 		return ;
-	add_history(cmd);	
+	add_history(cmd);
 	data->token_list = ft_lexer(cmd, data->env);
 	if (!data->token_list)
-			return ;
+		return ;
 	ft_parser_cmd(data->token_list, env, data);
 	ft_lstclear(&(data->token_list), ft_free_token);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char	*cmd;
 	t_data	data;	
@@ -69,7 +67,7 @@ int main(int argc, char **argv, char **env)
 		signal(SIGINT, ft_handler);
 		signal(SIGQUIT, SIG_IGN);
 		if (data.token_list)
-			ft_lstclear(&(data.token_list),ft_free_token);
+			ft_lstclear(&(data.token_list), ft_free_token);
 		if (cmd)
 			free(cmd);
 		cmd = readline("minishell: ");
