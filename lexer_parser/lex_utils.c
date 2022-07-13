@@ -53,6 +53,7 @@ t_list	*ft_token(int token, char *str)
 		return (0);
 	token_ptr->token = token;
 	token_ptr->str = ft_strdup(str);
+	token_ptr->is_save = 2;
 	token_element = ft_lstnew((void *)token_ptr);
 	return (token_element);
 }
