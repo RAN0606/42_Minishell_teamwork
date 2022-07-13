@@ -6,29 +6,29 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/23 10:34:30 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 11:08:45 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
 
-int		ft_output(t_list *lex_list)
+int	ft_output(t_list *lex_list)
 {
-	char *name;
-	int	 fd;
+	char	*name;
+	int		fd;
 
 	name = ((t_token *)(lex_list->content))->str;
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, 0777);
-	if (fd <0)
+	if (fd < 0)
 		return (-1);
 	dup2(fd, 1);
 	close(fd);
 	return (0);
 }
 
-int		ft_append(t_list *lex_list)
+int	ft_append(t_list *lex_list)
 {
-	char *name;
-	int	 fd;
+	char	*name;
+	int		fd;
 
 	name = ((t_token *)(lex_list->content))->str;
 	fd = open(name, O_WRONLY | O_APPEND | O_CREAT, 0777);
@@ -39,11 +39,11 @@ int		ft_append(t_list *lex_list)
 	return (0);
 }
 
-int		ft_redir_out(t_list *lex_list)
+int	ft_redir_out(t_list *lex_list)
 {
 	int		token;
-	t_list  *list_ptr;
-	
+	t_list	*list_ptr;
+
 	list_ptr = lex_list;
 	while (list_ptr)
 	{
@@ -66,4 +66,3 @@ int		ft_redir_out(t_list *lex_list)
 	}
 	return (0);
 }
-
