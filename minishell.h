@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 14:42:30 by qxia             ###   ########.fr       */
+/*   Updated: 2022/07/13 16:10:37 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@
 
 # define BUFFER_SIZE 4096
 # define NAME_MAX	255
-
-enum token {L_WORD = 1, L_PIPE, L_INPUT, L_OUTPUT, L_APPEND, L_HEREDOC};
+# define L_WORD		1
+# define L_PIPE		2
+# define L_INPUT	3
+# define L_OUTPUT	4
+# define L_APPEND 	5
+# define L_HEREDOC	6
 
 typedef struct s_token
 {
@@ -90,11 +94,12 @@ char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 char	*ft_handle_redir(char *cmd, t_list **token_list);
 /*******ft_check_syntax.c*/
 int		ft_check_syntax(t_list *lex_list);
+/*******lex_heredoc.c*/
+char	*ft_tmpname(void);
+int		ft_heredoc(t_list *lex_list, char *name);
 /********par_excute************************/
-
 /****ft_excute_utiles.c***/
-
-void	ft_perror(char *str);
+int		ft_perror(char *str, int i);
 /****par_excve.c***/
 char	*ft_tmpname(void);
 char	**ft_save_simple_cmd(t_list *lex_list);
@@ -111,7 +116,6 @@ int		ft_redir_in(t_list *lex_list);
 char	*ft_tmpname(void);
 int		ft_redir_out(t_list *lex_list);
 
-void	ft_perror(char *str);
 int		ft_pipe(t_list *lex_list, t_data *data);
 /***************************builtin*********************/
 int		ft_pwd(void);
