@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/27 12:44:17 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 11:56:30 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_handle_dollar(char *cmd, char **envtab)
 	int		j;
 
 	j = ft_check_envkey(cmd);
-	if (j == 1)	
+	if (j == 1)
 		return (ft_strdup("$"));
 	else if (j > 1)
 	{

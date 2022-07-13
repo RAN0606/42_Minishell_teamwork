@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 10:21:18 by rliu              #+#    #+#             */
-/*   Updated: 2022/06/24 16:27:51 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 11:55:20 by qxia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_return_quotevalue(char *cmd_wqt, char c, char **envtab, int j)
 		if (cmd_wqt[i] == '$' && c == '\"')
 		{
 			str = ft_strjoinfree(str, ft_handle_dollar(cmd_wqt + i, envtab));
-			i += ft_check_envkey(cmd_wqt + i)-1;
+			i += ft_check_envkey(cmd_wqt + i) - 1;
 		}
 		else
 			str = ft_strjoinfree(str, ft_substr(cmd_wqt, i, 1));
