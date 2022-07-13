@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 11:30:45 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:24:20 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -32,7 +32,7 @@ int	ft_call_builtin(char **list_cmd, t_data *data)
 
 void	ft_excuve_free(t_data *data, char **cmdtab)
 {
-	ft_perror("cmd is not found\n");
+	ft_perror("cmd is not found\n", 0);
 	free(data->pwd);
 	ft_free_env(data->env);
 	ft_free_env(cmdtab);
@@ -86,7 +86,7 @@ void	ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
 	{
 		if (ft_excuvp(cmdtab, data->env) == -1)
 		{
-			ft_perror("cmd not found\n");
+			ft_perror("cmd not found\n", 0);
 			free(data->pwd);
 			data->pwd = 0;
 			ft_free_env(data->env);

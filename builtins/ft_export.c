@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 12:05:46 by qxia              #+#    #+#             */
-/*   Updated: 2022/07/13 11:23:25 by qxia             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:25:25 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ int	ft_export(char **list_cmd, t_data *data)
 	int	i;
 	int	index;
 
-	i = 1;
-	if (list_cmd[i])
+	i = 0;
+	if (list_cmd[1])
 	{
-		while (list_cmd[i])
+		while (list_cmd[++i])
 		{
 			index = ft_index(list_cmd[i], data);
 			if (index >= 0 && check_export(list_cmd[i]))
@@ -88,11 +88,7 @@ int	ft_export(char **list_cmd, t_data *data)
 					exit(EXIT_FAILURE);
 			}
 			else
-			{
-				ft_perror("export: bad identifier\n");
-				return (0);
-			}
-			i++;
+				return (ft_perror("export: bad identifier\n", 1));
 		}
 	}
 	else

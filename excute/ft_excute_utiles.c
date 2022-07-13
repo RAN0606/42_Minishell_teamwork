@@ -6,16 +6,17 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 11:22:46 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 11:23:11 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:34:58 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_perror(char *str)
+int	ft_perror(char *str, int i)
 {
 	int	len;
 
 	len = ft_strlen(str);
 	write(2, str, len + 1);
+	return (i);
 }

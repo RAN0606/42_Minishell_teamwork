@@ -6,7 +6,7 @@
 #    By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/13 14:50:03 by rliu              #+#    #+#              #
-#    Updated: 2022/07/13 11:27:37 by rliu             ###   ########.fr        #
+#    Updated: 2022/07/13 15:16:33 by rliu             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC :=main.c \
 	lexer_parser/lex_word.c \
 	lexer_parser/lexer.c \
 	lexer_parser/lex_utils.c \
+	lexer_parser/lex_heredoc.c \
 	lexer_parser/ft_check_syntax.c\
 	excute/ft_excute_utiles.c \
 	excute/ft_pipe.c \
