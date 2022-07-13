@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 15:15:50 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 17:25:05 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -83,7 +83,7 @@ int	ft_check_syntax(t_list *lex_list)
 	}
 	if (last_token > L_WORD)
 		return (ft_p_syntaxerr(1, "newline"));
-	if (ft_save_heredoc(lex_list) != 0)
+	if (ft_check_heredoc(lex_list) != 0)
 		return (130);
 	return (0);
 }
