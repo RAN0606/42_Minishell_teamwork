@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/12 16:52:37 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/13 11:57:57 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,12 @@ char	*ft_handle_redir(char *cmd, t_list **token_list);
 int	ft_check_syntax(t_list *lex_list);
 /********par_excute************************/
 
+/****ft_excute_utiles.c***/
+
+void	ft_perror(char *str);
+/****par_excve.c***/
 char *ft_tmpname(void);
+char	**ft_save_simple_cmd(t_list *lex_list);
 t_list *ft_next_pipecmd(t_list *lex_list);
 int	ft_simplecmd(t_list *lex_list, char **envtab,t_data *data);
 int		ft_parser_cmd(t_list *lex_list,char **envtab, t_data *data);
