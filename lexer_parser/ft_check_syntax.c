@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	ft_save_heredoc(t_list *list_ptr)
+int	ft_save_heredoc(t_list *list_ptr, t_data *data)
 {
 	char	*name;
 	int		code;
 
 	code = 0;
 	name = ft_tmpname();
-	code = ft_heredoc(list_ptr, name);
+	code = ft_heredoc(list_ptr, name, data);
 	if (code != 0)
 	{
 		unlink(name);
@@ -34,13 +34,13 @@ int	ft_save_heredoc(t_list *list_ptr)
 	return (0);
 }
 
-int	ft_check_heredoc(t_list *lex_list)
+int	ft_check_heredoc(t_data *data)
 {
 	t_list	*list_ptr;
 	int		token;
 	int		code;
 
-	list_ptr = lex_list;
+	list_ptr = data->token_list;
 	code = 0;
 	while (list_ptr)
 	{
@@ -48,7 +48,7 @@ int	ft_check_heredoc(t_list *lex_list)
 		if (token == L_HEREDOC)
 		{
 			list_ptr = list_ptr->next;
-			code = ft_save_heredoc(list_ptr);
+			code = ft_save_heredoc(list_ptr, data);
 			if (code == 130)
 				return (130);
 		}
@@ -63,13 +63,13 @@ int	ft_p_syntaxerr(int nb, char *str)
 	return (nb);
 }
 
-int	ft_check_syntax(t_list *lex_list)
+int	ft_check_syntax(t_data *data)
 {
 	t_list	*list_ptr;
 	int		last_token;
 
 	last_token = 0;
-	list_ptr = lex_list;
+	list_ptr = data->token_list;
 	while (list_ptr)
 	{
 		if (last_token == 0 && ((t_token *)(list_ptr->content))->token
@@ -83,7 +83,7 @@ int	ft_check_syntax(t_list *lex_list)
 	}
 	if (last_token > L_WORD)
 		return (ft_p_syntaxerr(1, "newline"));
-	if (ft_check_heredoc(lex_list) != 0)
+	if (ft_check_heredoc(data) != 0)
 		return (130);
 	return (0);
 }

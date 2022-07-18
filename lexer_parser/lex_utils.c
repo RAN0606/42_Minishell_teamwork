@@ -33,6 +33,7 @@ void	ft_free_token(void *token)
 {
 	if (((t_token *)token)->is_save == 1)
 		unlink(((t_token *)token)->str);
+	//ft_print_token (token);
 	free(((t_token *)token)->str);
 	free((t_token *)token);
 }

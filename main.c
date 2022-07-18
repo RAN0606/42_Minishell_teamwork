@@ -6,13 +6,13 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:25 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 17:30:50 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/18 12:56:02 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_status;
+t_ms	g_ms;
 
 void	ft_handler(int sigu)
 {
@@ -22,7 +22,7 @@ void	ft_handler(int sigu)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_status = 130;
+		g_ms.status = 130;
 	}
 }
 
@@ -31,6 +31,8 @@ void	ft_init_data(t_data *data, char **env)
 	data->env = ft_getenv(env);
 	data->pwd = getcwd(NULL, 0);
 	data->token_list = NULL;
+	g_ms.status = 0;
+	g_ms.data = NULL;
 }
 
 void	ft_cntl_d(t_data *data)
@@ -41,7 +43,7 @@ void	ft_cntl_d(t_data *data)
 	exit(0);
 }
 
-void	ft_start_cmd(t_data *data, char *cmd, char **env)
+void	ft_start_cmd(t_data *data, char *cmd)
 {
 	if (!cmd)
 		ft_cntl_d(data);
@@ -51,7 +53,7 @@ void	ft_start_cmd(t_data *data, char *cmd, char **env)
 	data->token_list = ft_lexer(cmd, data->env);
 	if (!data->token_list)
 		return ;
-	ft_parser_cmd(data->token_list, env, data);
+	ft_parser_cmd(data);
 	if (data->token_list)
 		ft_lstclear(&(data->token_list), ft_free_token);
 }
@@ -74,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 		if (cmd)
 			free(cmd);
 		cmd = readline("minishell: ");
-		ft_start_cmd(&data, cmd, env);
+		ft_start_cmd(&data, cmd);
 	}
 	return (0);
 }

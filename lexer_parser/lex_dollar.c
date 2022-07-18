@@ -71,7 +71,7 @@ char	*ft_dollar_inword(char *temp_cmd, char **envtab, t_word *word)
 	{
 		env_key = ft_substr(temp_cmd, 1, j - 1);
 		if (ft_strcmp("?", env_key) == 0)
-			env_value = ft_itoa(g_status);
+			env_value = ft_itoa(g_ms.status);
 		else
 			env_value = ft_return_envvalue(env_key, envtab);
 		free(env_key);
@@ -93,7 +93,7 @@ char	*ft_handle_dollar(char *cmd, char **envtab)
 	{
 		env_key = ft_substr(cmd, 1, j - 1);
 		if (ft_strcmp("?", env_key) == 0)
-			env_value = ft_itoa(g_status);
+			env_value = ft_itoa(g_ms.status);
 		else
 			env_value = ft_return_envvalue(env_key, envtab);
 		free(env_key);

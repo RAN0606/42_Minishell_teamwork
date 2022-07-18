@@ -53,7 +53,7 @@ char	**ft_save_simple_cmd(t_list *lex_list)
 	return (list_cmd);
 }
 
-int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
+int	ft_simplecmd(t_data *data)
 {
 	char	**simple_cmd;
 	int		oldfd[2];
@@ -62,11 +62,11 @@ int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 	code = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
-	if (ft_redir_in(lex_list))
+	if (ft_redir_in(data->token_list))
 		return (130);
-	ft_redir_out(lex_list);
-	simple_cmd = ft_save_simple_cmd(lex_list);
-	code = ft_call_function(simple_cmd, envtab, data);
+	ft_redir_out(data->token_list);
+	simple_cmd = ft_save_simple_cmd(data->token_list);
+	code = ft_call_function(simple_cmd, data);
 	ft_free_env(simple_cmd);
 	dup2(oldfd[0], 0);
 	dup2(oldfd[1], 1);
@@ -75,20 +75,20 @@ int	ft_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 	return (code);
 }
 
-int	ft_parser_cmd(t_list *lex_list, char **envtab, t_data *data)
+int	ft_parser_cmd(t_data *data)
 {
 	t_list	*list_ptr;
 	t_list	*next_cmd;
 	int		code;
 
-	list_ptr = lex_list;
-	if (ft_check_syntax(lex_list))
+	list_ptr = data->token_list;
+	if (ft_check_syntax(data))
 		return (-1);
 	next_cmd = ft_next_pipecmd(list_ptr);
 	if (next_cmd)
-		code = ft_pipe(lex_list, data);
+		code = ft_pipe(list_ptr, data);
 	else if (list_ptr)
-		code = ft_simplecmd(lex_list, envtab, data);
-	g_status = code;
+		code = ft_simplecmd(data);
+	g_ms.status = code;
 	return (code);
 }

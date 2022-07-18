@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 17:25:41 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/18 12:58:27 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ typedef struct s_word
 	char	*ptr_cmd;
 	int		nb;
 }t_word;
-
-extern int	g_status;
-
 typedef struct s_data
 {
 	char	**env;
@@ -59,6 +56,14 @@ typedef struct s_data
 	int		redir;
 }t_data;
 
+typedef struct	ms
+{
+	t_data  *data;
+	char	*hd_name;
+	int		status;
+}t_ms;
+
+extern t_ms g_ms;
 /*******************Env********************/
 void	ft_handler(int sigu);
 int		ft_check_envvalue(char *keyequal, char **envtab);
@@ -93,10 +98,10 @@ char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 /*******lex_redir.c*/
 char	*ft_handle_redir(char *cmd, t_list **token_list);
 /*******ft_check_syntax.c*/
-int		ft_check_syntax(t_list *lex_list);
-/*******lex_heredoc.c*/
+int		ft_check_syntax(t_data *data);
+/*******edoc.c*/
 char	*ft_tmpname(void);
-int		ft_heredoc(t_list *lex_list, char *name);
+int		ft_heredoc(t_list *list_ptr, char *name, t_data *data);
 /********par_excute************************/
 /****ft_excute_utiles.c***/
 int		ft_perror(char *str, int i);
@@ -104,14 +109,14 @@ int		ft_perror(char *str, int i);
 char	*ft_tmpname(void);
 char	**ft_save_simple_cmd(t_list *lex_list);
 t_list	*ft_next_pipecmd(t_list *lex_list);
-int		ft_simplecmd(t_list *lex_list, char **envtab, t_data *data);
-int		ft_parser_cmd(t_list *lex_list, char **envtab, t_data *data);
+int		ft_simplecmd(t_data *data);
+int		ft_parser_cmd(t_data *data);
 int		ft_excute_simplecmd(t_list *lex_list, char **envtab, t_data *data);
 /****ft_excve.c***/
 int		ft_excuvp(char **simplecmd, char **envtab);
 
 /****ft_call_function.c*/
-int		ft_call_function(char **cmdtab, char **envtab, t_data *data);
+int		ft_call_function(char **cmdtab, t_data *data);
 int		ft_redir_in(t_list *lex_list);
 char	*ft_tmpname(void);
 int		ft_redir_out(t_list *lex_list);
@@ -139,6 +144,6 @@ void	print_export(char **env);
 int		ft_export(char **list_cmd, t_data *data);
 int		ft_exit(char **cmd, t_data *data);
 int		ft_unset(char **list_cmd, t_data *data);
-void	ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data);
-int		ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data);
+void	ft_pipe_call_function(char **cmdtab, t_data *data);
+int		ft_pipe_simplecmd(t_list *lex_list,  t_data *data);
 #endif

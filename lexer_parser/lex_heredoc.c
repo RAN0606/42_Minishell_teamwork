@@ -47,17 +47,22 @@ void	ft_hadler_heredoc(int sigu)
 	if (sigu == SIGINT)
 	{		
 		ft_putstr_fd("\n", 0);
-		g_status = 130;
+		g_ms.status = 130;
+		ft_lstclear(&g_ms.data->token_list, ft_free_token);
+		ft_free_env(g_ms.data->env);
+		free(g_ms.data->pwd);
+		free(g_ms.hd_name);
 		exit(130);
 	}
 }
 
-void	ft_heredoc_readline(int fd, char *str)
+void	ft_heredoc_readline(int fd, char *str, t_data *data)
 {
 	char	*line;
 
 	while (1)
 	{
+		g_ms.data = data;
 		signal(SIGINT, ft_hadler_heredoc);
 		line = readline(">");
 		if (!line)
@@ -75,10 +80,14 @@ void	ft_heredoc_readline(int fd, char *str)
 		free(line);
 	}
 	close(fd);
+	ft_lstclear(&data->token_list, ft_free_token);
+	ft_free_env(data->env);
+	free(data->pwd);
+	free(g_ms.hd_name);
 	exit (0);
 }
 
-int	ft_heredoc(t_list *lex_list, char *name)
+int	ft_heredoc(t_list *list_ptr, char *name, t_data *data)
 {
 	char	*str;
 	int		fd;
@@ -88,17 +97,18 @@ int	ft_heredoc(t_list *lex_list, char *name)
 	pid = fork();
 	if (pid == 0)
 	{
-		str = ((t_token *)(lex_list->content))->str;
+		str = ((t_token *)(list_ptr->content))->str;
 		fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 		if (!name || fd < 0)
 			exit (1);
-		ft_heredoc_readline(fd, str);
+		g_ms.hd_name = name;
+		ft_heredoc_readline(fd, str, data);
 	}
 	else
 	{	
 		waitpid(pid, &status, 0);
-		g_status = WEXITSTATUS(status);
-		return (g_status);
+		g_ms.status = WEXITSTATUS(status);
+		return (g_ms.status);
 	}
 	return (0);
 }

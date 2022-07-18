@@ -48,7 +48,7 @@ int	ft_free_exit(char **cmd, t_data *data, int code)
 	ft_lstclear(&(data->token_list), ft_free_token);
 	ft_free_env(data->env);
 	free(data->pwd);
-	g_status = code;
+	g_ms.status = code;
 	exit (code);
 }
 

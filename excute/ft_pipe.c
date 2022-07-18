@@ -19,7 +19,7 @@ void	first_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		ft_pipe_simplecmd(lex_list, data->env, data);
+		ft_pipe_simplecmd(lex_list, data);
 		if (data->token_list)
 			ft_lstclear(&(data->token_list), ft_free_token);
 		exit(EXIT_SUCCESS);
@@ -39,7 +39,7 @@ void	second_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 		if (pipecmd)
 			ft_pipe(lex_list, data);
 		else
-			ft_pipe_simplecmd(lex_list, data->env, data);
+			ft_pipe_simplecmd(lex_list, data);
 		ft_lstclear(((&data->token_list)), ft_free_token);
 		ft_free_env(data->env);
 		free(data->pwd);
@@ -47,7 +47,7 @@ void	second_cmd(int pid, t_list *lex_list, t_data *data, int *fd)
 	}
 }
 
-int	ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data)
+int	ft_pipe_simplecmd(t_list *lex_list, t_data *data)
 {
 	char	**simple_cmd;
 
@@ -55,7 +55,7 @@ int	ft_pipe_simplecmd(t_list *lex_list, char **envtab, t_data *data)
 		return (130);
 	ft_redir_out(lex_list);
 	simple_cmd = ft_save_simple_cmd(lex_list);
-	ft_pipe_call_function(simple_cmd, envtab, data);
+	ft_pipe_call_function(simple_cmd, data);
 	ft_free_env(simple_cmd);
 	return (0);
 }
@@ -99,6 +99,6 @@ int	ft_pipe(t_list *lex_list, t_data *data)
 	close(fd[1]);
 	waitpid(pid[0], &status[0], 0);
 	waitpid(pid[1], &status[1], 0);
-	g_status = WEXITSTATUS(status[1]);
-	return (g_status);
+	g_ms.status = WEXITSTATUS(status[1]);
+	return (g_ms.status);
 }

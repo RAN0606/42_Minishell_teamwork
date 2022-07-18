@@ -65,22 +65,20 @@ int	ft_call_excuve(char **cmdtab, t_data *data)
 	return (WEXITSTATUS(status));
 }
 
-int	ft_call_function(char **cmdtab, char **envtab, t_data *data)
+int	ft_call_function(char **cmdtab, t_data *data)
 {
 	int	code;
 
-	(void)envtab;
 	code = ft_call_builtin(cmdtab, data);
 	if (code == -1)
 		return (ft_call_excuve(cmdtab, data));
 	return (code);
 }
 
-void	ft_pipe_call_function(char **cmdtab, char **envtab, t_data *data)
+void	ft_pipe_call_function(char **cmdtab,  t_data *data)
 {
 	int	code;
 
-	(void)envtab;
 	code = ft_call_builtin(cmdtab, data);
 	if (code == -1)
 	{
