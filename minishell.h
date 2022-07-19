@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:55:21 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/18 12:58:27 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/19 15:53:22 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ typedef struct s_data
 	int		redir;
 }t_data;
 
-typedef struct	ms
+typedef struct ms
 {
-	t_data  *data;
+	t_data	*data;
 	char	*hd_name;
 	int		status;
 }t_ms;
 
-extern t_ms g_ms;
+extern t_ms	g_ms;
 /*******************Env********************/
 void	ft_handler(int sigu);
 int		ft_check_envvalue(char *keyequal, char **envtab);
@@ -99,6 +99,7 @@ char	*ft_add_word(char *cmd, t_list **token_list, char **envtab);
 char	*ft_handle_redir(char *cmd, t_list **token_list);
 /*******ft_check_syntax.c*/
 int		ft_check_syntax(t_data *data);
+void	ft_free_heredoc(void);
 /*******edoc.c*/
 char	*ft_tmpname(void);
 int		ft_heredoc(t_list *list_ptr, char *name, t_data *data);
@@ -145,5 +146,5 @@ int		ft_export(char **list_cmd, t_data *data);
 int		ft_exit(char **cmd, t_data *data);
 int		ft_unset(char **list_cmd, t_data *data);
 void	ft_pipe_call_function(char **cmdtab, t_data *data);
-int		ft_pipe_simplecmd(t_list *lex_list,  t_data *data);
+int		ft_pipe_simplecmd(t_list *lex_list, t_data *data);
 #endif

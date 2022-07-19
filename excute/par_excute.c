@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 11:56:22 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/19 16:29:27 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -37,6 +37,8 @@ char	**ft_save_simple_cmd(t_list *lex_list)
 	t_list	*list_ptr;
 
 	size = ft_count_simple_cmd(lex_list);
+	if (size == 0)
+		return (0);
 	list_cmd = (char **)ft_calloc(size + 1, sizeof(char *));
 	if (!list_cmd)
 		return (0);
@@ -66,6 +68,8 @@ int	ft_simplecmd(t_data *data)
 		return (130);
 	ft_redir_out(data->token_list);
 	simple_cmd = ft_save_simple_cmd(data->token_list);
+	if (!simple_cmd)
+		return (0);
 	code = ft_call_function(simple_cmd, data);
 	ft_free_env(simple_cmd);
 	dup2(oldfd[0], 0);

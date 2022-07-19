@@ -6,10 +6,18 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 17:25:05 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/19 16:10:36 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
+
+void	ft_free_heredoc(void)
+{
+	ft_lstclear(&g_ms.data->token_list, ft_free_token);
+	ft_free_env(g_ms.data->env);
+	free(g_ms.data->pwd);
+	free(g_ms.hd_name);
+}
 
 int	ft_save_heredoc(t_list *list_ptr, t_data *data)
 {

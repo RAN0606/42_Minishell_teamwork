@@ -6,7 +6,7 @@
 /*   By: qxia <qxia@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 14:24:20 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/19 15:40:38 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -75,7 +75,7 @@ int	ft_call_function(char **cmdtab, t_data *data)
 	return (code);
 }
 
-void	ft_pipe_call_function(char **cmdtab,  t_data *data)
+void	ft_pipe_call_function(char **cmdtab, t_data *data)
 {
 	int	code;
 

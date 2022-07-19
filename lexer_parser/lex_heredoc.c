@@ -6,7 +6,7 @@
 /*   By: rliu <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:30:53 by rliu              #+#    #+#             */
-/*   Updated: 2022/07/13 14:57:23 by rliu             ###   ########.fr       */
+/*   Updated: 2022/07/19 16:23:57 by rliu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"
@@ -47,11 +47,7 @@ void	ft_hadler_heredoc(int sigu)
 	if (sigu == SIGINT)
 	{		
 		ft_putstr_fd("\n", 0);
-		g_ms.status = 130;
-		ft_lstclear(&g_ms.data->token_list, ft_free_token);
-		ft_free_env(g_ms.data->env);
-		free(g_ms.data->pwd);
-		free(g_ms.hd_name);
+		ft_free_heredoc();
 		exit(130);
 	}
 }
@@ -80,10 +76,7 @@ void	ft_heredoc_readline(int fd, char *str, t_data *data)
 		free(line);
 	}
 	close(fd);
-	ft_lstclear(&data->token_list, ft_free_token);
-	ft_free_env(data->env);
-	free(data->pwd);
-	free(g_ms.hd_name);
+	ft_free_heredoc();
 	exit (0);
 }
 
