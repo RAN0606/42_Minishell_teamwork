@@ -21,7 +21,7 @@ int	ft_input(t_list *lex_list)
 		if (access(path, F_OK) != 0)
 		{
 			printf("%s: No such file or directory\n", path);
-			return (1);
+			return (2);
 		}
 	}
 	return (0);
@@ -57,10 +57,7 @@ int	ft_redir_in_dup(char *lastin_name)
 	{
 		fd = open(lastin_name, O_RDONLY);
 		if (fd < 0)
-		{
-			perror("fd:");
 			return (1);
-		}
 		dup2(fd, 0);
 		close(fd);
 	}

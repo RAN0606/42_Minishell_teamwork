@@ -51,9 +51,6 @@ typedef struct s_data
 	char	**env;
 	char	*pwd;
 	t_list	*token_list;
-	int		fd_in;
-	int		fd_out;
-	int		redir;
 }t_data;
 
 typedef struct ms

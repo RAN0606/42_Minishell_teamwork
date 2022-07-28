@@ -64,8 +64,9 @@ int	ft_simplecmd(t_data *data)
 	code = 0;
 	oldfd[0] = dup(0);
 	oldfd[1] = dup(1);
-	if (ft_redir_in(data->token_list))
-		return (130);
+	code = ft_redir_in(data->token_list);
+	if (code)
+		return (code);
 	ft_redir_out(data->token_list);
 	simple_cmd = ft_save_simple_cmd(data->token_list);
 	if (!simple_cmd)
